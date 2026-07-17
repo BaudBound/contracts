@@ -1,13 +1,14 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://schemas.baudbound.app/nodes/trigger-schedule.schema.json",
-	"title": "BaudBound Node - Schedule",
+	"$id": "https://schemas.baudbound.app/nodes/action-clipboard-get.schema.json",
+	"title": "BaudBound Node - Get Clipboard",
 	"type": "object",
 	"additionalProperties": false,
 	"required": [
 		"id",
 		"action_type",
 		"type",
+		"action",
 		"config",
 		"runtime_outputs"
 	],
@@ -17,10 +18,10 @@
 			"minLength": 1
 		},
 		"action_type": {
-			"const": "trigger.schedule"
+			"const": "action.clipboard.get"
 		},
 		"type": {
-			"const": "schedule"
+			"const": "action"
 		},
 		"config": {
 			"$ref": "#/$defs/config"
@@ -30,42 +31,18 @@
 			"items": {
 				"$ref": "https://schemas.baudbound.app/program.schema.json#/$defs/runtimeOutput"
 			}
+		},
+		"action": {
+			"const": "get_clipboard"
 		}
 	},
 	"$defs": {
 		"config": {
 			"type": "object",
 			"additionalProperties": false,
-			"required": [
-				"every",
-				"unit"
-			],
 			"properties": {
 				"customName": {
 					"type": "string"
-				},
-				"every": {
-					"anyOf": [
-						{
-							"type": "number",
-							"exclusiveMinimum": 0,
-							"maximum": 1.7976931348623157e+308
-						},
-						{
-							"type": "string",
-							"pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$"
-						}
-					]
-				},
-				"unit": {
-					"type": "string",
-					"enum": [
-						"milliseconds",
-						"seconds",
-						"minutes",
-						"hours",
-						"days"
-					]
 				}
 			}
 		}
