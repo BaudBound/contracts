@@ -1,0 +1,6 @@
+*
+!Dockerfile
+!nginx.conf
+!*.schema.json
+!nodes/
+!nodes/*.schema.json

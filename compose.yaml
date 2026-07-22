@@ -1,0 +1,7 @@
+services:
+  schemas:
+    image: ghcr.io/baudbound/contracts:latest
+    container_name: baudbound-contracts
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8085:8080"
