@@ -1,6 +1,6 @@
 # BaudBound contracts
 
-This repository contains the public compatibility contracts shared by the [BaudBound Editor](https://github.com/BaudBound/editor) and [BaudBound runner](https://github.com/BaudBound/BaudBound).
+This repository contains the public compatibility contracts shared by the [BaudBound Editor](https://github.com/BaudBound/editor) and [BaudBound runner](https://github.com/BaudBound/baudbound).
 
 The root JSON Schemas define `.bbs` package files and node configuration. Files under `runner/` define generated node capabilities, permissions, ports, numeric limits, keyboard names, and cross-implementation behavior cases.
 
