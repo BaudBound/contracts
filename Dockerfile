@@ -1,8 +1,10 @@
 FROM nginx:1.29-alpine
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY *.schema.json /usr/share/nginx/html/
-COPY nodes/ /usr/share/nginx/html/nodes/
+COPY --chown=nginx:nginx nginx.conf /etc/nginx/nginx.conf
+COPY --chown=nginx:nginx *.schema.json /usr/share/nginx/html/
+COPY --chown=nginx:nginx nodes/ /usr/share/nginx/html/nodes/
+
+RUN chmod 0444 /etc/nginx/nginx.conf
 
 USER nginx
 
