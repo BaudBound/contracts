@@ -18,7 +18,46 @@ if (manifest.format !== "baudbound.contracts" || manifest.format_version !== 1) 
   throw new Error("contract.json does not identify BaudBound contract format 1.");
 }
 
+await validateRepositoryEnums();
+
 console.log(`Validated ${files.length} JSON contract files.`);
+
+async function validateRepositoryEnums() {
+  const repository = JSON.parse(await readFile(path.join(root, "repository.schema.json"), "utf8"));
+  const permissions = JSON.parse(await readFile(path.join(root, "permissions.schema.json"), "utf8"));
+  const capabilities = JSON.parse(await readFile(path.join(root, "capabilities.schema.json"), "utf8"));
+  const scriptProperties = repository.$defs?.script?.properties;
+
+  assertSameValues(
+    "repository permissions",
+    scriptProperties?.permissions?.items?.enum,
+    permissions.properties?.declared_permissions?.items?.enum,
+  );
+  assertSameValues(
+    "repository capabilities",
+    scriptProperties?.capabilities?.items?.enum,
+    capabilities.properties?.required_capabilities?.items?.enum,
+  );
+  assertSameValues(
+    "repository target runtimes",
+    scriptProperties?.target_runtime?.enum,
+    capabilities.properties?.target_runtime?.enum,
+  );
+  assertSameValues(
+    "repository risk levels",
+    scriptProperties?.risk_level?.enum,
+    permissions.properties?.risk_level?.enum,
+  );
+}
+
+function assertSameValues(label, actual, expected) {
+  if (!Array.isArray(actual) || !Array.isArray(expected)) {
+    throw new Error(`${label} must be represented by arrays in both schemas.`);
+  }
+  if (JSON.stringify([...actual].sort()) !== JSON.stringify([...expected].sort())) {
+    throw new Error(`${label} do not match their canonical contract.`);
+  }
+}
 
 async function collectJsonFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
