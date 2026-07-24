@@ -147,7 +147,8 @@
             "enum": ["runtime", "persistent"]
           },
           "type": {
-            "const": "string"
+            "type": "string",
+            "enum": ["string", "number", "boolean", "object", "list", "http_response", "datetime", "duration", "file_path"]
           },
           "description": {
             "type": "string",

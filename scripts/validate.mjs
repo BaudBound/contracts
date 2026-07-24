@@ -19,6 +19,7 @@ if (manifest.format !== "baudbound.contracts" || manifest.format_version !== 1) 
 }
 
 await validateRepositoryEnums();
+await validateManifestVariableTypes();
 
 console.log(`Validated ${files.length} JSON contract files.`);
 
@@ -48,6 +49,15 @@ async function validateRepositoryEnums() {
     scriptProperties?.risk_level?.enum,
     permissions.properties?.risk_level?.enum,
   );
+}
+
+async function validateManifestVariableTypes() {
+  const manifest = JSON.parse(await readFile(path.join(root, "manifest.schema.json"), "utf8"));
+  const variable = manifest.properties?.variables?.items;
+  const declaredTypes = variable?.properties?.type?.enum;
+  const typedValues = variable?.oneOf?.map((entry) => entry.properties?.type?.const);
+
+  assertSameValues("manifest variable types", declaredTypes, typedValues);
 }
 
 function assertSameValues(label, actual, expected) {
