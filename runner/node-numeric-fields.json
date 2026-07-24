@@ -246,6 +246,7 @@
 				}
 			}
 		},
+		"control.break_loop": {},
 		"control.color_match": {
 			"tolerancePercent": {
 				"kind": "float",
@@ -259,9 +260,10 @@
 				"allows_variables": true
 			}
 		},
+		"control.continue_loop": {},
 		"control.for_each": {},
 		"control.if": {},
-		"control.loop": {
+		"control.repeat": {
 			"count": {
 				"kind": "integer",
 				"signed": false,

@@ -103,8 +103,14 @@
 		"action.window.focus": [
 			"action.window"
 		],
+		"control.break_loop": [
+			"runtime.break_loop"
+		],
 		"control.color_match": [
 			"runtime.color_match"
+		],
+		"control.continue_loop": [
+			"runtime.continue_loop"
 		],
 		"control.for_each": [
 			"runtime.for_each"
@@ -112,8 +118,8 @@
 		"control.if": [
 			"runtime.if"
 		],
-		"control.loop": [
-			"runtime.loop"
+		"control.repeat": [
+			"runtime.repeat"
 		],
 		"control.switch": [
 			"runtime.switch"

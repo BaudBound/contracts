@@ -272,7 +272,15 @@
 			},
 			"path_rules": []
 		},
+		"control.break_loop": {
+			"permission": null,
+			"path_rules": []
+		},
 		"control.color_match": {
+			"permission": null,
+			"path_rules": []
+		},
+		"control.continue_loop": {
 			"permission": null,
 			"path_rules": []
 		},
@@ -284,7 +292,7 @@
 			"permission": null,
 			"path_rules": []
 		},
-		"control.loop": {
+		"control.repeat": {
 			"permission": null,
 			"path_rules": []
 		},

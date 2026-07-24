@@ -338,6 +338,13 @@
 				"failed"
 			]
 		},
+		"control.break_loop": {
+			"kind": "fixed",
+			"inputs": [
+				"input"
+			],
+			"outputs": []
+		},
 		"control.color_match": {
 			"kind": "fixed",
 			"inputs": [
@@ -347,6 +354,13 @@
 				"match",
 				"no_match"
 			]
+		},
+		"control.continue_loop": {
+			"kind": "fixed",
+			"inputs": [
+				"input"
+			],
+			"outputs": []
 		},
 		"control.for_each": {
 			"kind": "fixed",
@@ -368,14 +382,14 @@
 				"false"
 			]
 		},
-		"control.loop": {
+		"control.repeat": {
 			"kind": "fixed",
 			"inputs": [
 				"input"
 			],
 			"outputs": [
 				"done",
-				"loop"
+				"repeat"
 			]
 		},
 		"control.switch": {
