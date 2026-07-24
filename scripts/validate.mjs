@@ -40,8 +40,8 @@ async function validateRepositoryEnums() {
   );
   assertSameValues(
     "repository target runtimes",
-    scriptProperties?.target_runtime?.enum,
-    capabilities.properties?.target_runtime?.enum,
+    scriptProperties?.target_runtimes?.items?.enum,
+    capabilities.properties?.target_runtimes?.items?.enum,
   );
   assertSameValues(
     "repository risk levels",

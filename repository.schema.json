@@ -44,7 +44,7 @@
         "script_id",
         "name",
         "summary",
-        "target_runtime",
+        "target_runtimes",
         "minimum_runner_version",
         "risk_level",
         "tags",
@@ -94,16 +94,19 @@
           "minLength": 1,
           "maxLength": 128
         },
-        "target_runtime": {
-          "type": "string",
-          "enum": [
-            "Generic Headless",
-            "Linux Headless",
-            "Windows Headless",
-            "Generic Desktop",
-            "Windows Desktop",
-            "Linux Desktop"
-          ]
+        "target_runtimes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "Linux Headless",
+              "Windows Headless",
+              "Windows Desktop",
+              "Linux Desktop"
+            ]
+          }
         },
         "minimum_runner_version": {
           "type": "string",
