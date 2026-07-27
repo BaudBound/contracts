@@ -35,6 +35,7 @@
 					"action.window",
 					"action.sound",
 					"action.text",
+					"action.value",
 					"action.calculate",
 					"action.pixel",
 					"action.serial",

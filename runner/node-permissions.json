@@ -244,6 +244,13 @@
 			},
 			"path_rules": []
 		},
+		"action.value.convert": {
+			"permission": {
+				"name": "value_conversion",
+				"risk": "low"
+			},
+			"path_rules": []
+		},
 		"action.webhook_response": {
 			"permission": {
 				"name": "webhook_response",

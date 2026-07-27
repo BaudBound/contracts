@@ -57,7 +57,8 @@
 				"input"
 			],
 			"outputs": [
-				"out"
+				"success",
+				"failed"
 			]
 		},
 		"action.file.copy": {
@@ -285,10 +286,21 @@
 				"input"
 			],
 			"outputs": [
-				"out"
+				"success",
+				"failed"
 			]
 		},
 		"action.url.parse": {
+			"kind": "fixed",
+			"inputs": [
+				"input"
+			],
+			"outputs": [
+				"success",
+				"failed"
+			]
+		},
+		"action.value.convert": {
 			"kind": "fixed",
 			"inputs": [
 				"input"
@@ -415,7 +427,8 @@
 				"input"
 			],
 			"outputs": [
-				"out"
+				"success",
+				"failed"
 			]
 		},
 		"trigger.file_watch": {
