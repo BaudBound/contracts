@@ -178,42 +178,9 @@
 			}
 		},
 		"action.sound.play": {},
-		"action.text.format": {
-			"start": {
-				"kind": "integer",
-				"signed": false,
-				"minimum": "0",
-				"maximum": "18446744073709551615",
-				"minimum_inclusive": true,
-				"maximum_inclusive": true,
-				"label": "Start",
-				"required": false,
-				"allows_variables": true
-			},
-			"length": {
-				"kind": "integer",
-				"signed": false,
-				"minimum": "0",
-				"maximum": "18446744073709551615",
-				"minimum_inclusive": true,
-				"maximum_inclusive": true,
-				"label": "Length",
-				"required": false,
-				"allows_variables": true
-			},
-			"targetLength": {
-				"kind": "integer",
-				"signed": false,
-				"minimum": "0",
-				"maximum": "18446744073709551615",
-				"minimum_inclusive": true,
-				"maximum_inclusive": true,
-				"label": "Target length",
-				"required": false,
-				"allows_variables": true
-			}
-		},
+		"action.text.format": {},
 		"action.url.parse": {},
+		"action.value.convert": {},
 		"action.webhook_response": {
 			"statusCode": {
 				"kind": "integer",

@@ -91,6 +91,9 @@
 		"action.url.parse": [
 			"action.text"
 		],
+		"action.value.convert": [
+			"action.value"
+		],
 		"action.webhook_response": [
 			"action.webhook_response"
 		],

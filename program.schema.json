@@ -66,6 +66,7 @@
 				"action.sound.play",
 				"action.text.format",
 				"action.url.parse",
+				"action.value.convert",
 				"action.webhook_response",
 				"action.websocket.write",
 				"action.window.active",
@@ -150,6 +151,7 @@
 				"action.sound.play",
 				"action.text.format",
 				"action.url.parse",
+				"action.value.convert",
 				"action.webhook_response",
 				"action.websocket.write",
 				"action.window.active",
@@ -203,6 +205,7 @@
 				"play_sound",
 				"format_text",
 				"parse_url",
+				"convert_value",
 				"webhook_response",
 				"websocket_write",
 				"get_active_window",
@@ -732,6 +735,9 @@
 				},
 				{
 					"$ref": "https://schemas.baudbound.app/nodes/action-url-parse.schema.json"
+				},
+				{
+					"$ref": "https://schemas.baudbound.app/nodes/action-value-convert.schema.json"
 				},
 				{
 					"$ref": "https://schemas.baudbound.app/nodes/action-webhook-response.schema.json"
