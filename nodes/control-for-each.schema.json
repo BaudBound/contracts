@@ -37,18 +37,10 @@
 			"type": "object",
 			"additionalProperties": false,
 			"required": [
-				"indexVariable",
-				"itemVariable",
 				"items"
 			],
 			"properties": {
 				"customName": {
-					"type": "string"
-				},
-				"indexVariable": {
-					"type": "string"
-				},
-				"itemVariable": {
 					"type": "string"
 				},
 				"items": {
