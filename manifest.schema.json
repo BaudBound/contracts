@@ -148,7 +148,11 @@
           },
           "type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "list", "http_response", "datetime", "duration", "file_path"]
+            "enum": ["string", "number", "boolean", "object", "list", "datetime", "duration", "file_path"]
+          },
+          "item_type": {
+            "type": "string",
+            "enum": ["string", "number", "boolean", "object", "datetime", "duration", "file_path"]
           },
           "description": {
             "type": "string",
@@ -160,38 +164,88 @@
         },
         "oneOf": [
           {
+            "not": { "required": ["item_type"] },
             "properties": { "type": { "const": "string" }, "value": { "type": "string", "pattern": "\\S" } }
           },
           {
+            "not": { "required": ["item_type"] },
             "properties": { "type": { "const": "file_path" }, "value": { "type": "string", "pattern": "\\S" } }
           },
           {
+            "not": { "required": ["item_type"] },
             "properties": { "type": { "const": "number" }, "value": { "type": "number" } }
           },
           {
+            "not": { "required": ["item_type"] },
             "properties": { "type": { "const": "boolean" }, "value": { "type": "boolean" } }
           },
           {
-            "properties": { "type": { "const": "list" }, "value": { "type": "array" } }
+            "required": ["item_type"],
+            "properties": { "type": { "const": "list" }, "value": { "type": "array" } },
+            "allOf": [
+              {
+                "if": { "properties": { "item_type": { "const": "string" } } },
+                "then": { "properties": { "value": { "items": { "type": "string" } } } }
+              },
+              {
+                "if": { "properties": { "item_type": { "const": "number" } } },
+                "then": { "properties": { "value": { "items": { "type": "number" } } } }
+              },
+              {
+                "if": { "properties": { "item_type": { "const": "boolean" } } },
+                "then": { "properties": { "value": { "items": { "type": "boolean" } } } }
+              },
+              {
+                "if": { "properties": { "item_type": { "const": "object" } } },
+                "then": { "properties": { "value": { "items": { "type": "object" } } } }
+              },
+              {
+                "if": { "properties": { "item_type": { "const": "file_path" } } },
+                "then": { "properties": { "value": { "items": { "type": "string", "pattern": "\\S" } } } }
+              },
+              {
+                "if": { "properties": { "item_type": { "const": "datetime" } } },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "object",
+                        "required": ["type", "value"],
+                        "properties": {
+                          "type": { "const": "datetime" },
+                          "value": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": { "properties": { "item_type": { "const": "duration" } } },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "items": {
+                        "type": "object",
+                        "required": ["type", "unit", "value"],
+                        "properties": {
+                          "type": { "const": "duration" },
+                          "unit": { "type": "string" },
+                          "value": { "type": "number" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           },
           {
+            "not": { "required": ["item_type"] },
             "properties": { "type": { "const": "object" }, "value": { "type": "object" } }
           },
           {
-            "properties": {
-              "type": { "const": "http_response" },
-              "value": {
-                "type": "object",
-                "required": ["type", "status", "headers", "body"],
-                "properties": {
-                  "type": { "const": "http_response" },
-                  "status": { "type": "number" },
-                  "headers": { "type": "object" }
-                }
-              }
-            }
-          },
-          {
+            "not": { "required": ["item_type"] },
             "properties": {
               "type": { "const": "datetime" },
               "value": {
@@ -205,6 +259,7 @@
             }
           },
           {
+            "not": { "required": ["item_type"] },
             "properties": {
               "type": { "const": "duration" },
               "value": {
@@ -214,6 +269,199 @@
                   "type": { "const": "duration" },
                   "value": { "type": "number" },
                   "unit": { "type": "string" }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "uniqueItems": true
+    },
+    "settings": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "type", "required"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+            "maxLength": 128
+          },
+          "type": {
+            "type": "string",
+            "enum": ["string", "number", "boolean", "object", "list", "datetime", "duration", "file_path"]
+          },
+          "item_type": {
+            "type": "string",
+            "enum": ["string", "number", "boolean", "object", "datetime", "duration", "file_path"]
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "default_value": {
+            "type": ["string", "number", "boolean", "object", "array", "null"]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "type": { "const": "string" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "string" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "number" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "number" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "boolean" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "boolean" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "object" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "object" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "list" } },
+              "required": ["type"]
+            },
+            "then": {
+              "required": ["item_type"],
+              "properties": { "default_value": { "type": "array" } },
+              "allOf": [
+                {
+                  "if": { "properties": { "item_type": { "const": "string" } } },
+                  "then": { "properties": { "default_value": { "items": { "type": "string" } } } }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "number" } } },
+                  "then": { "properties": { "default_value": { "items": { "type": "number" } } } }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "boolean" } } },
+                  "then": { "properties": { "default_value": { "items": { "type": "boolean" } } } }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "object" } } },
+                  "then": { "properties": { "default_value": { "items": { "type": "object" } } } }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "file_path" } } },
+                  "then": { "properties": { "default_value": { "items": { "type": "string", "pattern": "\\S" } } } }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "datetime" } } },
+                  "then": {
+                    "properties": {
+                      "default_value": {
+                        "items": {
+                          "type": "object",
+                          "required": ["type", "value"],
+                          "properties": {
+                            "type": { "const": "datetime" },
+                            "value": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "duration" } } },
+                  "then": {
+                    "properties": {
+                      "default_value": {
+                        "items": {
+                          "type": "object",
+                          "required": ["type", "unit", "value"],
+                          "properties": {
+                            "type": { "const": "duration" },
+                            "unit": { "type": "string" },
+                            "value": { "type": "number" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "file_path" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "string", "pattern": "\\S" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "datetime" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": {
+                "default_value": {
+                  "type": "object",
+                  "required": ["type", "value"],
+                  "properties": {
+                    "type": { "const": "datetime" },
+                    "value": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "duration" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": {
+                "default_value": {
+                  "type": "object",
+                  "required": ["type", "unit", "value"],
+                  "properties": {
+                    "type": { "const": "duration" },
+                    "unit": { "type": "string" },
+                    "value": { "type": "number" }
+                  }
                 }
               }
             }
@@ -237,7 +485,7 @@
           },
           "type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "list", "http_response", "datetime", "duration", "file_path"]
+            "const": "string"
           },
           "description": {
             "type": "string",

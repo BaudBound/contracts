@@ -39,15 +39,51 @@
 			"required": [
 				"name",
 				"operation",
-				"scope",
-				"valueType"
+				"scope"
 			],
 			"properties": {
 				"customName": {
 					"type": "string"
 				},
+				"fieldItemType": {
+					"type": "string",
+					"enum": [
+						"string",
+						"number",
+						"boolean",
+						"object",
+						"datetime",
+						"duration",
+						"file_path"
+					]
+				},
 				"fieldPath": {
 					"$ref": "https://schemas.baudbound.app/program.schema.json#/$defs/jsonValue"
+				},
+				"fieldValueType": {
+					"type": "string",
+					"enum": [
+						"string",
+						"number",
+						"boolean",
+						"object",
+						"list",
+						"datetime",
+						"duration",
+						"file_path"
+					]
+				},
+				"itemType": {
+					"type": "string",
+					"enum": [
+						"string",
+						"number",
+						"boolean",
+						"object",
+						"datetime",
+						"duration",
+						"file_path"
+					]
 				},
 				"name": {
 					"type": "string"
@@ -57,9 +93,21 @@
 					"enum": [
 						"set",
 						"increment",
+						"toggle_boolean",
 						"append_list",
+						"remove_list_items",
 						"set_object_field",
-						"clear"
+						"remove_object_field",
+						"merge_object",
+						"clear",
+						"delete"
+					]
+				},
+				"removeMode": {
+					"type": "string",
+					"enum": [
+						"first",
+						"all"
 					]
 				},
 				"scope": {
@@ -81,13 +129,117 @@
 						"boolean",
 						"object",
 						"list",
-						"http_response",
 						"datetime",
 						"duration",
 						"file_path"
 					]
 				}
-			}
+			},
+			"allOf": [
+				{
+					"if": {
+						"properties": {
+							"operation": {
+								"const": "set"
+							}
+						},
+						"required": [
+							"operation"
+						]
+					},
+					"then": {
+						"required": [
+							"valueType"
+						]
+					}
+				},
+				{
+					"if": {
+						"properties": {
+							"operation": {
+								"const": "set"
+							},
+							"valueType": {
+								"const": "list"
+							}
+						},
+						"required": [
+							"operation",
+							"valueType"
+						]
+					},
+					"then": {
+						"required": [
+							"itemType"
+						]
+					}
+				},
+				{
+					"if": {
+						"properties": {
+							"operation": {
+								"enum": [
+									"set_object_field",
+									"remove_object_field"
+								]
+							}
+						}
+					},
+					"then": {
+						"required": [
+							"fieldPath"
+						]
+					}
+				},
+				{
+					"if": {
+						"properties": {
+							"operation": {
+								"const": "set_object_field"
+							}
+						}
+					},
+					"then": {
+						"required": [
+							"fieldValueType"
+						]
+					}
+				},
+				{
+					"if": {
+						"properties": {
+							"operation": {
+								"const": "set_object_field"
+							},
+							"fieldValueType": {
+								"const": "list"
+							}
+						},
+						"required": [
+							"fieldValueType"
+						]
+					},
+					"then": {
+						"required": [
+							"fieldItemType"
+						]
+					}
+				},
+				{
+					"if": {
+						"properties": {
+							"operation": {
+								"const": "remove_list_items"
+							}
+						}
+					},
+					"then": {
+						"required": [
+							"removeMode"
+						]
+					}
+				}
+			]
 		}
 	}
 }
