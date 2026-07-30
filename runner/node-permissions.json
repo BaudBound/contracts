@@ -3,7 +3,7 @@
 	"nodes": {
 		"action.application.open": {
 			"permission": {
-				"name": "open_application",
+				"name": "application.open",
 				"risk": "medium"
 			},
 			"path_rules": []
@@ -24,14 +24,14 @@
 		},
 		"action.clipboard.get": {
 			"permission": {
-				"name": "read_clipboard",
+				"name": "clipboard.read",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.clipboard.set": {
 			"permission": {
-				"name": "write_clipboard",
+				"name": "clipboard.write",
 				"risk": "medium"
 			},
 			"path_rules": []
@@ -45,7 +45,7 @@
 		},
 		"action.file.copy": {
 			"permission": {
-				"name": "file_copy",
+				"name": "file.copy",
 				"risk": "medium"
 			},
 			"path_rules": [
@@ -61,14 +61,19 @@
 		},
 		"action.file.delete": {
 			"permission": {
-				"name": "delete_file",
+				"name": "file.delete.any",
 				"risk": "dangerous"
 			},
-			"path_rules": []
+			"path_rules": [
+				{
+					"access": "delete",
+					"config_key": "path"
+				}
+			]
 		},
 		"action.file.download": {
 			"permission": {
-				"name": "download_file",
+				"name": "file.download",
 				"risk": "medium"
 			},
 			"path_rules": [
@@ -80,7 +85,7 @@
 		},
 		"action.file.move": {
 			"permission": {
-				"name": "file_move",
+				"name": "file.move",
 				"risk": "medium"
 			},
 			"path_rules": [
@@ -96,7 +101,7 @@
 		},
 		"action.file.read": {
 			"permission": {
-				"name": "file_read",
+				"name": "file.read",
 				"risk": "medium"
 			},
 			"path_rules": [
@@ -108,7 +113,7 @@
 		},
 		"action.file.write": {
 			"permission": {
-				"name": "file_write_limited",
+				"name": "file.write.limited",
 				"risk": "high"
 			},
 			"path_rules": [
@@ -120,21 +125,21 @@
 		},
 		"action.http": {
 			"permission": {
-				"name": "http_request",
+				"name": "http.request",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.keyboard": {
 			"permission": {
-				"name": "keyboard_control",
+				"name": "keyboard.control",
 				"risk": "high"
 			},
 			"path_rules": []
 		},
 		"action.keyboard.type_text": {
 			"permission": {
-				"name": "keyboard_control",
+				"name": "keyboard.control",
 				"risk": "high"
 			},
 			"path_rules": []
@@ -148,133 +153,133 @@
 		},
 		"action.message_box": {
 			"permission": {
-				"name": "show_message_box",
+				"name": "messageBox.show",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.mouse": {
 			"permission": {
-				"name": "mouse_control",
+				"name": "mouse.control",
 				"risk": "high"
 			},
 			"path_rules": []
 		},
 		"action.mouse.move": {
 			"permission": {
-				"name": "mouse_control",
+				"name": "mouse.control",
 				"risk": "high"
 			},
 			"path_rules": []
 		},
 		"action.notification": {
 			"permission": {
-				"name": "show_notification",
+				"name": "notification.show",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.pixel.get": {
 			"permission": {
-				"name": "screen_pixel_read",
+				"name": "screen.pixel.read",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.process.kill": {
 			"permission": {
-				"name": "process_kill",
+				"name": "process.kill",
 				"risk": "high"
 			},
 			"path_rules": []
 		},
 		"action.process.run": {
 			"permission": {
-				"name": "run_process",
+				"name": "process.run",
 				"risk": "dangerous"
 			},
 			"path_rules": []
 		},
 		"action.process.status": {
 			"permission": {
-				"name": "process_query",
+				"name": "process.query",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.script.run": {
 			"permission": {
-				"name": "sub_script_run",
+				"name": "script.run",
 				"risk": "high"
 			},
 			"path_rules": []
 		},
 		"action.serial.write": {
 			"permission": {
-				"name": "serial_write",
+				"name": "serial.write",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.shell": {
 			"permission": {
-				"name": "run_shell_command",
+				"name": "process.shell",
 				"risk": "dangerous"
 			},
 			"path_rules": []
 		},
 		"action.sound.play": {
 			"permission": {
-				"name": "play_sound",
+				"name": "sound.play",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.text.format": {
 			"permission": {
-				"name": "text_transform",
+				"name": "text.transform",
 				"risk": "low"
 			},
 			"path_rules": []
 		},
 		"action.url.parse": {
 			"permission": {
-				"name": "parse_url",
+				"name": "url.parse",
 				"risk": "low"
 			},
 			"path_rules": []
 		},
 		"action.value.convert": {
 			"permission": {
-				"name": "value_conversion",
+				"name": "value.convert",
 				"risk": "low"
 			},
 			"path_rules": []
 		},
 		"action.webhook_response": {
 			"permission": {
-				"name": "webhook_response",
+				"name": "webhook.response",
 				"risk": "low"
 			},
 			"path_rules": []
 		},
 		"action.websocket.write": {
 			"permission": {
-				"name": "websocket_write",
+				"name": "websocket.write",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.window.active": {
 			"permission": {
-				"name": "window_query",
+				"name": "window.query",
 				"risk": "medium"
 			},
 			"path_rules": []
 		},
 		"action.window.focus": {
 			"permission": {
-				"name": "window_focus",
+				"name": "window.focus",
 				"risk": "high"
 			},
 			"path_rules": []
@@ -313,7 +318,7 @@
 		},
 		"runtime.set_variable": {
 			"permission": {
-				"name": "set_local_variable",
+				"name": "variable.local.set",
 				"risk": "low"
 			},
 			"path_rules": []
@@ -340,28 +345,28 @@
 		},
 		"trigger.serial_input": {
 			"permission": {
-				"name": "serial_input",
+				"name": "serial.input",
 				"risk": "high"
 			},
 			"path_rules": []
 		},
 		"trigger.startup": {
 			"permission": {
-				"name": "startup_trigger",
+				"name": "trigger.startup",
 				"risk": "high"
 			},
 			"path_rules": []
 		},
 		"trigger.webhook": {
 			"permission": {
-				"name": "webhook_public_bind",
+				"name": "network.webhook",
 				"risk": "high"
 			},
 			"path_rules": []
 		},
 		"trigger.websocket": {
 			"permission": {
-				"name": "websocket_public_bind",
+				"name": "network.websocket",
 				"risk": "high"
 			},
 			"path_rules": []

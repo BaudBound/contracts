@@ -38,7 +38,7 @@
 			"additionalProperties": false,
 			"properties": {
 				"conditions": {
-					"$ref": "https://schemas.baudbound.app/program.schema.json#/$defs/jsonValue"
+					"$ref": "https://schemas.baudbound.app/program.schema.json#/$defs/whileConditionRows"
 				},
 				"customName": {
 					"type": "string"

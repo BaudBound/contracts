@@ -49,7 +49,10 @@
 					"type": "string"
 				},
 				"arguments": {
-					"type": "string"
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
 				},
 				"customName": {
 					"type": "string"

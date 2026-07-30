@@ -292,6 +292,144 @@
 				}
 			]
 		},
+		"conditionOperator": {
+			"type": "string",
+			"enum": [
+				"==",
+				">",
+				">=",
+				"<",
+				"<=",
+				"is_between",
+				"contains",
+				"starts_with",
+				"ends_with",
+				"regex_match",
+				"is_empty",
+				"is_null_or_missing",
+				"is_true",
+				"is_false",
+				"equals_ignore_case",
+				"contains_ignore_case",
+				"has_key",
+				"contains_item",
+				"is_numeric",
+				"is_string",
+				"is_boolean",
+				"is_list",
+				"is_object"
+			]
+		},
+		"whileConditionOperator": {
+			"type": "string",
+			"enum": [
+				"==",
+				">",
+				">=",
+				"<",
+				"<=",
+				"is_between",
+				"contains",
+				"starts_with",
+				"ends_with",
+				"regex_match",
+				"is_empty",
+				"is_null_or_missing"
+			]
+		},
+		"conditionRow": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": [
+				"id",
+				"left",
+				"operator",
+				"right"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"minLength": 1
+				},
+				"invert": {
+					"type": "boolean"
+				},
+				"left": {
+					"type": "string"
+				},
+				"combinator": {
+					"type": "string",
+					"enum": [
+						"and",
+						"or"
+					]
+				},
+				"operator": {
+					"$ref": "#/$defs/conditionOperator"
+				},
+				"right": {
+					"type": "string"
+				},
+				"rightEnd": {
+					"type": "string"
+				}
+			},
+			"allOf": [
+				{
+					"if": {
+						"properties": {
+							"operator": {
+								"const": "is_between"
+							}
+						},
+						"required": [
+							"operator"
+						]
+					},
+					"then": {
+						"required": [
+							"rightEnd"
+						],
+						"properties": {
+							"right": {
+								"minLength": 1
+							},
+							"rightEnd": {
+								"minLength": 1
+							}
+						}
+					}
+				}
+			]
+		},
+		"conditionRows": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"$ref": "#/$defs/conditionRow"
+			}
+		},
+		"whileConditionRow": {
+			"allOf": [
+				{
+					"$ref": "#/$defs/conditionRow"
+				},
+				{
+					"properties": {
+						"operator": {
+							"$ref": "#/$defs/whileConditionOperator"
+						}
+					}
+				}
+			]
+		},
+		"whileConditionRows": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"$ref": "#/$defs/whileConditionRow"
+			}
+		},
 		"config": {
 			"type": "object",
 			"propertyNames": {
