@@ -260,7 +260,7 @@
 				"maximum_inclusive": true,
 				"label": "Every",
 				"required": true,
-				"allows_variables": false
+				"allows_variables": true
 			}
 		},
 		"trigger.serial_input": {},
@@ -284,7 +284,7 @@
 				"maximum": "599",
 				"minimum_inclusive": true,
 				"maximum_inclusive": true,
-				"label": "Fallback response status",
+				"label": "Response status",
 				"required": false,
 				"allows_variables": false
 			}
