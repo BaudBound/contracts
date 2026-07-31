@@ -240,7 +240,8 @@
 				"duration_ms",
 				"process_id",
 				"exit_code",
-				"keyboard_key"
+				"keyboard_key",
+				"color"
 			]
 		},
 		"variableType": {
@@ -320,23 +321,6 @@
 				"is_object"
 			]
 		},
-		"whileConditionOperator": {
-			"type": "string",
-			"enum": [
-				"==",
-				">",
-				">=",
-				"<",
-				"<=",
-				"is_between",
-				"contains",
-				"starts_with",
-				"ends_with",
-				"regex_match",
-				"is_empty",
-				"is_null_or_missing"
-			]
-		},
 		"conditionRow": {
 			"type": "object",
 			"additionalProperties": false,
@@ -407,27 +391,6 @@
 			"minItems": 1,
 			"items": {
 				"$ref": "#/$defs/conditionRow"
-			}
-		},
-		"whileConditionRow": {
-			"allOf": [
-				{
-					"$ref": "#/$defs/conditionRow"
-				},
-				{
-					"properties": {
-						"operator": {
-							"$ref": "#/$defs/whileConditionOperator"
-						}
-					}
-				}
-			]
-		},
-		"whileConditionRows": {
-			"type": "array",
-			"minItems": 1,
-			"items": {
-				"$ref": "#/$defs/whileConditionRow"
 			}
 		},
 		"config": {

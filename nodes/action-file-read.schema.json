@@ -41,18 +41,11 @@
 			"type": "object",
 			"additionalProperties": false,
 			"required": [
-				"encoding",
 				"path"
 			],
 			"properties": {
 				"customName": {
 					"type": "string"
-				},
-				"encoding": {
-					"type": "string",
-					"enum": [
-						"utf-8"
-					]
 				},
 				"path": {
 					"type": "string"

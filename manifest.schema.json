@@ -292,7 +292,7 @@
           },
           "type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "list", "datetime", "duration", "file_path"]
+            "enum": ["string", "number", "boolean", "object", "list", "datetime", "duration", "file_path", "hotkey", "color"]
           },
           "item_type": {
             "type": "string",
@@ -425,6 +425,26 @@
             "then": {
               "not": { "required": ["item_type"] },
               "properties": { "default_value": { "type": "string", "pattern": "\\S" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "hotkey" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "string", "pattern": "\\S" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "color" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" } }
             }
           },
           {
