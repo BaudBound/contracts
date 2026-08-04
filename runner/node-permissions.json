@@ -240,7 +240,12 @@
 				"name": "sound.play",
 				"risk": "medium"
 			},
-			"path_rules": []
+			"path_rules": [
+				{
+					"access": "read",
+					"config_key": "filePath"
+				}
+			]
 		},
 		"action.text.format": {
 			"permission": {
