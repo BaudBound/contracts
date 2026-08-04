@@ -37,6 +37,9 @@
 		"action.file.write": [
 			"action.file"
 		],
+		"action.form_dialog": [
+			"action.form_dialog"
+		],
 		"action.http": [
 			"action.http"
 		],

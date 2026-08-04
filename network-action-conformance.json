@@ -1,0 +1,51 @@
+{
+	"version": 1,
+	"success": {
+		"required_fields": {
+			"status_code": "number",
+			"status_text": "string",
+			"headers": "object",
+			"body": "string",
+			"duration_ms": "number"
+		},
+		"optional_fields": {
+			"json": "json"
+		}
+	},
+	"error": {
+		"error_type": "http",
+		"required_fields": {
+			"message": "string",
+			"code": "string",
+			"type": "string",
+			"retryable": "boolean",
+			"details": "object"
+		},
+		"codes": {
+			"API_REQUEST_LIMIT": false,
+			"CROSS_ORIGIN_BODY_BLOCKED": false,
+			"DNS_FAILED": true,
+			"HEADER_LIMIT": false,
+			"HTTP_REQUEST_FAILED": true,
+			"HTTP_TIMEOUT": true,
+			"INVALID_AUTHORIZATION": false,
+			"INVALID_HEADERS": false,
+			"INVALID_METHOD": false,
+			"INVALID_REQUEST": false,
+			"INVALID_RESPONSE": true,
+			"INVALID_SCHEME": false,
+			"INVALID_TIMEOUT": false,
+			"INVALID_URL": false,
+			"ORIGIN_NOT_AUTHORIZED": false,
+			"PRIVATE_ADDRESS_BLOCKED": false,
+			"REDIRECT_DOWNGRADE": false,
+			"REDIRECT_LIMIT": false,
+			"REDIRECT_LOOP": false,
+			"REDIRECT_ORIGIN_NOT_AUTHORIZED": false,
+			"REQUEST_BODY_LIMIT": false,
+			"RESPONSE_BODY_LIMIT": false,
+			"UNSUPPORTED_CONTENT_ENCODING": false,
+			"URL_CREDENTIALS_BLOCKED": false
+		}
+	}
+}

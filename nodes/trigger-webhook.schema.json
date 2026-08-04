@@ -45,7 +45,8 @@
 					"type": "string"
 				},
 				"hookName": {
-					"type": "string"
+					"type": "string",
+					"pattern": "^[A-Za-z0-9_-]+$"
 				},
 				"method": {
 					"type": "string",

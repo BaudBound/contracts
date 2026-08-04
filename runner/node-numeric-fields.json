@@ -48,6 +48,19 @@
 		"action.file.move": {},
 		"action.file.read": {},
 		"action.file.write": {},
+		"action.form_dialog": {
+			"timeoutSeconds": {
+				"kind": "float",
+				"signed": false,
+				"minimum": "0",
+				"maximum": "86400",
+				"minimum_inclusive": false,
+				"maximum_inclusive": true,
+				"label": "Timeout (seconds)",
+				"required": false,
+				"allows_variables": true
+			}
+		},
 		"action.http": {
 			"timeoutSeconds": {
 				"kind": "float",
@@ -64,7 +77,19 @@
 		"action.keyboard": {},
 		"action.keyboard.type_text": {},
 		"action.log": {},
-		"action.message_box": {},
+		"action.message_box": {
+			"timeoutSeconds": {
+				"kind": "float",
+				"signed": false,
+				"minimum": "0",
+				"maximum": "86400",
+				"minimum_inclusive": false,
+				"maximum_inclusive": true,
+				"label": "Timeout (seconds)",
+				"required": false,
+				"allows_variables": true
+			}
+		},
 		"action.mouse": {},
 		"action.mouse.move": {
 			"x": {

@@ -147,13 +147,14 @@
               "runtime.data.read",
               "notification.show",
               "messageBox.show",
+              "formDialog.show",
               "http.request",
               "file.download",
               "file.read",
+              "file.watch.limited",
               "file.copy",
               "file.move",
               "clipboard.write",
-              "application.open",
               "window.query",
               "process.query",
               "serial.write",
@@ -167,6 +168,7 @@
               "file.delete.limited",
               "file.delete.any",
               "file.read.any",
+              "file.watch.any",
               "file.write.any",
               "clipboard.read",
               "value.convert",
@@ -178,6 +180,7 @@
               "serial.input",
               "window.focus",
               "process.kill",
+              "process.observe",
               "script.run"
             ]
           },
@@ -202,6 +205,7 @@
               "action.delay",
               "action.notification",
               "action.message_box",
+              "action.form_dialog",
               "action.http",
               "action.webhook_response",
               "action.websocket",
@@ -253,7 +257,7 @@
         "package_url": {
           "type": "string",
           "format": "uri",
-          "pattern": "^https://",
+          "pattern": "^https://[^?#]+$",
           "maxLength": 2048
         },
         "sha256": {

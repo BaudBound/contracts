@@ -24,6 +24,7 @@
 					"action.delay",
 					"action.notification",
 					"action.message_box",
+					"action.form_dialog",
 					"action.http",
 					"action.webhook_response",
 					"action.websocket",

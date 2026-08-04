@@ -87,7 +87,7 @@
     "repository_url": {
       "type": "string",
       "format": "uri",
-      "pattern": "^https://",
+      "pattern": "^https://[^?#]+$",
       "maxLength": 2048
     },
     "assets": {
@@ -139,7 +139,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+            "pattern": "^[A-Za-z0-9_-]+$",
             "maxLength": 128
           },
           "scope": {
@@ -210,10 +210,11 @@
                     "value": {
                       "items": {
                         "type": "object",
+                        "additionalProperties": false,
                         "required": ["type", "value"],
                         "properties": {
                           "type": { "const": "datetime" },
-                          "value": { "type": "string" }
+                          "value": { "type": "string", "format": "date-time" }
                         }
                       }
                     }
@@ -227,11 +228,12 @@
                     "value": {
                       "items": {
                         "type": "object",
+                        "additionalProperties": false,
                         "required": ["type", "unit", "value"],
                         "properties": {
                           "type": { "const": "duration" },
-                          "unit": { "type": "string" },
-                          "value": { "type": "number" }
+                          "unit": { "enum": ["milliseconds", "seconds", "minutes", "hours", "days"] },
+                          "value": { "type": "number", "minimum": 0 }
                         }
                       }
                     }
@@ -250,10 +252,11 @@
               "type": { "const": "datetime" },
               "value": {
                 "type": "object",
+                "additionalProperties": false,
                 "required": ["type", "value"],
                 "properties": {
                   "type": { "const": "datetime" },
-                  "value": { "type": "string" }
+                  "value": { "type": "string", "format": "date-time" }
                 }
               }
             }
@@ -264,11 +267,12 @@
               "type": { "const": "duration" },
               "value": {
                 "type": "object",
+                "additionalProperties": false,
                 "required": ["type", "value", "unit"],
                 "properties": {
                   "type": { "const": "duration" },
-                  "value": { "type": "number" },
-                  "unit": { "type": "string" }
+                  "value": { "type": "number", "minimum": 0 },
+                  "unit": { "enum": ["milliseconds", "seconds", "minutes", "hours", "days"] }
                 }
               }
             }
@@ -287,7 +291,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+            "pattern": "^[A-Za-z0-9_-]+$",
             "maxLength": 128
           },
           "type": {
@@ -386,10 +390,11 @@
                       "default_value": {
                         "items": {
                           "type": "object",
+                          "additionalProperties": false,
                           "required": ["type", "value"],
                           "properties": {
                             "type": { "const": "datetime" },
-                            "value": { "type": "string" }
+                            "value": { "type": "string", "format": "date-time" }
                           }
                         }
                       }
@@ -403,11 +408,12 @@
                       "default_value": {
                         "items": {
                           "type": "object",
+                          "additionalProperties": false,
                           "required": ["type", "unit", "value"],
                           "properties": {
                             "type": { "const": "duration" },
-                            "unit": { "type": "string" },
-                            "value": { "type": "number" }
+                            "unit": { "enum": ["milliseconds", "seconds", "minutes", "hours", "days"] },
+                            "value": { "type": "number", "minimum": 0 }
                           }
                         }
                       }
@@ -457,10 +463,11 @@
               "properties": {
                 "default_value": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": ["type", "value"],
                   "properties": {
                     "type": { "const": "datetime" },
-                    "value": { "type": "string" }
+                    "value": { "type": "string", "format": "date-time" }
                   }
                 }
               }
@@ -476,11 +483,12 @@
               "properties": {
                 "default_value": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": ["type", "unit", "value"],
                   "properties": {
                     "type": { "const": "duration" },
-                    "unit": { "type": "string" },
-                    "value": { "type": "number" }
+                    "unit": { "enum": ["milliseconds", "seconds", "minutes", "hours", "days"] },
+                    "value": { "type": "number", "minimum": 0 }
                   }
                 }
               }
@@ -500,7 +508,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+            "pattern": "^[A-Za-z0-9_-]+$",
             "maxLength": 128
           },
           "type": {
