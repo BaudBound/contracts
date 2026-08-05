@@ -232,40 +232,30 @@
 			"type": "string",
 			"enum": [
 				"string",
-				"number",
+				"integer",
+				"float",
 				"boolean",
 				"object",
 				"list",
-				"file_content",
-				"file_path",
-				"http_headers",
-				"http_status_code",
-				"duration_ms",
-				"process_id",
-				"exit_code",
+				"color",
 				"keyboard_key",
-				"color"
+				"datetime",
+				"duration"
 			]
 		},
 		"variableType": {
 			"type": "string",
 			"enum": [
 				"string",
-				"number",
+				"integer",
+				"float",
 				"boolean",
 				"object",
 				"list",
-				"file_content",
-				"datetime",
-				"duration",
-				"file_path",
-				"http_headers",
-				"http_status_code",
-				"duration_ms",
-				"process_id",
-				"exit_code",
+				"color",
 				"keyboard_key",
-				"color"
+				"datetime",
+				"duration"
 			]
 		},
 		"jsonValue": {
