@@ -312,11 +312,11 @@
           },
           "type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "list", "datetime", "duration", "file_path", "hotkey", "color"]
+            "enum": ["string", "integer", "float", "boolean", "object", "list", "color", "keyboard_key", "datetime", "duration"]
           },
           "item_type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "datetime", "duration", "file_path"]
+            "enum": ["string", "integer", "float", "boolean", "object", "color", "keyboard_key", "datetime", "duration"]
           },
           "description": {
             "type": "string",
@@ -342,7 +342,17 @@
           },
           {
             "if": {
-              "properties": { "type": { "const": "number" } },
+              "properties": { "type": { "const": "integer" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "integer" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "float" } },
               "required": ["type"]
             },
             "then": {
@@ -384,7 +394,11 @@
                   "then": { "properties": { "default_value": { "items": { "type": "string" } } } }
                 },
                 {
-                  "if": { "properties": { "item_type": { "const": "number" } } },
+                  "if": { "properties": { "item_type": { "const": "integer" } } },
+                  "then": { "properties": { "default_value": { "items": { "type": "integer" } } } }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "float" } } },
                   "then": { "properties": { "default_value": { "items": { "type": "number" } } } }
                 },
                 {
@@ -396,7 +410,15 @@
                   "then": { "properties": { "default_value": { "items": { "type": "object" } } } }
                 },
                 {
-                  "if": { "properties": { "item_type": { "const": "file_path" } } },
+                  "if": { "properties": { "item_type": { "const": "color" } } },
+                  "then": {
+                    "properties": {
+                      "default_value": { "items": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" } }
+                    }
+                  }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "keyboard_key" } } },
                   "then": { "properties": { "default_value": { "items": { "type": "string", "pattern": "\\S" } } } }
                 },
                 {
@@ -441,17 +463,7 @@
           },
           {
             "if": {
-              "properties": { "type": { "const": "file_path" } },
-              "required": ["type"]
-            },
-            "then": {
-              "not": { "required": ["item_type"] },
-              "properties": { "default_value": { "type": "string", "pattern": "\\S" } }
-            }
-          },
-          {
-            "if": {
-              "properties": { "type": { "const": "hotkey" } },
+              "properties": { "type": { "const": "keyboard_key" } },
               "required": ["type"]
             },
             "then": {
