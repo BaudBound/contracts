@@ -1,0 +1,34 @@
+{
+	"version": 1,
+	"cases": [
+		{ "value": "hello", "type": "string", "valid": true, "reason": "any string" },
+		{ "value": 42, "type": "string", "valid": false, "reason": "a number is not a string" },
+		{ "value": null, "type": "string", "valid": false, "reason": "null is never valid" },
+
+		{ "value": 42, "type": "integer", "valid": true, "reason": "whole number" },
+		{ "value": -42, "type": "integer", "valid": true, "reason": "negative whole number" },
+		{ "value": 3.7, "type": "integer", "valid": false, "reason": "fractional" },
+		{ "value": "42", "type": "integer", "valid": false, "reason": "a string is not an integer" },
+
+		{ "value": 3.7, "type": "float", "valid": true, "reason": "fractional" },
+		{ "value": 42, "type": "float", "valid": false, "reason": "an integer is not a float, types are exact" },
+
+		{ "value": true, "type": "boolean", "valid": true, "reason": "boolean" },
+		{ "value": "true", "type": "boolean", "valid": false, "reason": "a string is not a boolean" },
+
+		{ "value": {}, "type": "object", "valid": true, "reason": "object" },
+		{ "value": [], "type": "list", "valid": true, "reason": "array" },
+		{ "value": [], "type": "object", "valid": false, "reason": "an array is not an object" },
+
+		{ "value": "#ff0000", "type": "color", "valid": true, "reason": "six digit hex" },
+		{ "value": "#FF0000", "type": "color", "valid": true, "reason": "case insensitive" },
+		{ "value": "#f00", "type": "color", "valid": false, "reason": "three digit form is not accepted" },
+		{ "value": "red", "type": "color", "valid": false, "reason": "not a hex value" },
+
+		{ "value": { "type": "datetime", "value": "2026-01-01T00:00:00.000Z" }, "type": "datetime", "valid": true, "reason": "tagged datetime" },
+		{ "value": "2026-01-01T00:00:00.000Z", "type": "datetime", "valid": false, "reason": "a bare string is not a tagged datetime" },
+
+		{ "value": { "type": "duration", "unit": "seconds", "value": 30 }, "type": "duration", "valid": true, "reason": "tagged duration" },
+		{ "value": { "type": "duration", "value": 30 }, "type": "duration", "valid": false, "reason": "missing unit" }
+	]
+}
