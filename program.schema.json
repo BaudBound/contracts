@@ -48,6 +48,7 @@
 				"action.file.move",
 				"action.file.read",
 				"action.file.write",
+				"action.form_dialog",
 				"action.http",
 				"action.keyboard",
 				"action.keyboard.type_text",
@@ -133,6 +134,7 @@
 				"action.file.move",
 				"action.file.read",
 				"action.file.write",
+				"action.form_dialog",
 				"action.http",
 				"action.keyboard",
 				"action.keyboard.type_text",
@@ -187,6 +189,7 @@
 				"move_file",
 				"read_file",
 				"write_file",
+				"form_dialog",
 				"http_request",
 				"press_key",
 				"type_text",
@@ -253,7 +256,6 @@
 				"object",
 				"list",
 				"file_content",
-				"http_response",
 				"datetime",
 				"duration",
 				"file_path",
@@ -262,7 +264,8 @@
 				"duration_ms",
 				"process_id",
 				"exit_code",
-				"keyboard_key"
+				"keyboard_key",
+				"color"
 			]
 		},
 		"jsonValue": {
@@ -780,6 +783,9 @@
 				},
 				{
 					"$ref": "https://schemas.baudbound.app/nodes/action-file-write.schema.json"
+				},
+				{
+					"$ref": "https://schemas.baudbound.app/nodes/action-form-dialog.schema.json"
 				},
 				{
 					"$ref": "https://schemas.baudbound.app/nodes/action-http.schema.json"

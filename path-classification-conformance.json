@@ -1,0 +1,39 @@
+{
+	"version": 1,
+	"description": "Shared cases for configured file path risk classification. A path is unbounded when it cannot be proven to stay inside the script workspace, which escalates a file action to a Dangerous permission. The editor and the runner must agree on every case, otherwise the risk shown at approval time differs from the risk the runner calculates and the package fails to import. Classification is platform independent because a package authored on one platform can be installed on the other.",
+	"cases": [
+		{ "path": "notes.txt", "unbounded": false, "reason": "plain relative file inside the workspace" },
+		{ "path": "output/result.txt", "unbounded": false, "reason": "relative subdirectory inside the workspace" },
+		{ "path": "nested/directory/file.log", "unbounded": false, "reason": "deeper relative path inside the workspace" },
+		{ "path": "./relative.txt", "unbounded": false, "reason": "explicit current directory prefix stays inside the workspace" },
+		{ "path": "report-2026.txt", "unbounded": false, "reason": "digits and dashes are ordinary file name characters" },
+		{ "path": "", "unbounded": false, "reason": "an unset path declares the bounded permission until it is configured" },
+
+		{ "path": "../escape.txt", "unbounded": true, "reason": "parent traversal leaves the workspace" },
+		{ "path": "nested/../../escape.txt", "unbounded": true, "reason": "parent traversal after a descent leaves the workspace" },
+		{ "path": "/etc/passwd", "unbounded": true, "reason": "POSIX absolute path" },
+		{ "path": "~/.ssh/id_rsa", "unbounded": true, "reason": "home relative path" },
+		{ "path": "C:/Windows/System32/drivers/etc/hosts", "unbounded": true, "reason": "Windows absolute path with a drive and root" },
+		{ "path": "\\Windows\\System32\\config\\SAM", "unbounded": true, "reason": "Windows root relative path" },
+		{ "path": "//server/share/file.txt", "unbounded": true, "reason": "UNC network path" },
+		{ "path": "{{n-node.output}}", "unbounded": true, "reason": "resolved at run time so the target cannot be proven" },
+		{ "path": "output/{{n-node.name}}.txt", "unbounded": true, "reason": "partially templated paths cannot be proven" },
+
+		{ "path": "C:file.txt", "unbounded": true, "reason": "Windows drive relative path resolves against that drive's current directory" },
+		{ "path": "c:nested/file.txt", "unbounded": true, "reason": "Windows drive relative path in lower case" },
+		{ "path": "Z:data.log", "unbounded": true, "reason": "Windows drive relative path on another drive" },
+
+		{ "path": "notes.txt:hidden", "unbounded": true, "reason": "NTFS alternate data stream writes to a hidden stream of another file" },
+		{ "path": "output/report.txt:$DATA", "unbounded": true, "reason": "NTFS alternate data stream in a subdirectory" },
+
+		{ "path": "CON", "unbounded": true, "reason": "reserved Windows device name" },
+		{ "path": "NUL", "unbounded": true, "reason": "reserved Windows device name" },
+		{ "path": "COM1", "unbounded": true, "reason": "reserved Windows serial device" },
+		{ "path": "LPT1", "unbounded": true, "reason": "reserved Windows printer device" },
+		{ "path": "aux.txt", "unbounded": true, "reason": "reserved device names match the segment stem before the extension" },
+		{ "path": "output/CON", "unbounded": true, "reason": "reserved device names resolve in any directory" },
+
+		{ "path": "/etc/shadow", "unbounded": true, "reason": "sensitive system location" },
+		{ "path": "/root/.bashrc", "unbounded": true, "reason": "sensitive system location" }
+	]
+}

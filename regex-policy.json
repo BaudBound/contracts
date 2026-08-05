@@ -1,0 +1,5 @@
+{
+	"version": 1,
+	"max_pattern_utf8_bytes": 256,
+	"max_simulation_input_utf8_bytes": 16777216
+}

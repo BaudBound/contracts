@@ -121,6 +121,16 @@
 				"failed"
 			]
 		},
+		"action.form_dialog": {
+			"kind": "fixed",
+			"inputs": [
+				"input"
+			],
+			"outputs": [
+				"success",
+				"failed"
+			]
+		},
 		"action.http": {
 			"kind": "fixed",
 			"inputs": [

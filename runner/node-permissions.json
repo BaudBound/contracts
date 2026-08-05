@@ -3,8 +3,8 @@
 	"nodes": {
 		"action.application.open": {
 			"permission": {
-				"name": "application.open",
-				"risk": "medium"
+				"name": "process.run",
+				"risk": "dangerous"
 			},
 			"path_rules": []
 		},
@@ -123,6 +123,13 @@
 				}
 			]
 		},
+		"action.form_dialog": {
+			"permission": {
+				"name": "formDialog.show",
+				"risk": "medium"
+			},
+			"path_rules": []
+		},
 		"action.http": {
 			"permission": {
 				"name": "http.request",
@@ -233,7 +240,12 @@
 				"name": "sound.play",
 				"risk": "medium"
 			},
-			"path_rules": []
+			"path_rules": [
+				{
+					"access": "read",
+					"config_key": "filePath"
+				}
+			]
 		},
 		"action.text.format": {
 			"permission": {
@@ -324,8 +336,16 @@
 			"path_rules": []
 		},
 		"trigger.file_watch": {
-			"permission": null,
-			"path_rules": []
+			"permission": {
+				"name": "file.watch.limited",
+				"risk": "medium"
+			},
+			"path_rules": [
+				{
+					"access": "watch",
+					"config_key": "path"
+				}
+			]
 		},
 		"trigger.hotkey": {
 			"permission": null,
@@ -336,7 +356,10 @@
 			"path_rules": []
 		},
 		"trigger.process_started": {
-			"permission": null,
+			"permission": {
+				"name": "process.observe",
+				"risk": "medium"
+			},
 			"path_rules": []
 		},
 		"trigger.schedule": {

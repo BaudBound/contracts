@@ -1,0 +1,40 @@
+{
+	"version": 1,
+	"condition_cases": [
+		{
+			"name": "ascii match",
+			"pattern": "^baud(bound)?$",
+			"input": "baudbound",
+			"matched": true
+		},
+		{
+			"name": "unicode letters",
+			"pattern": "^\\p{L}+$",
+			"input": "BaudBöund",
+			"matched": true
+		},
+		{
+			"name": "catastrophic backtracking shape remains bounded",
+			"pattern": "^(a+)+$",
+			"input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!",
+			"matched": false
+		}
+	],
+	"invalid_patterns": ["[", "(?=baud)", "(baud)\\1"],
+	"replacement_cases": [
+		{
+			"name": "global digit replacement",
+			"pattern": "\\d",
+			"input": "a1b2",
+			"replacement": "#",
+			"output": "a#b#"
+		},
+		{
+			"name": "numbered capture replacement",
+			"pattern": "([^:]+):([^:]+)",
+			"input": "first:last",
+			"replacement": "$2, $1",
+			"output": "last, first"
+		}
+	]
+}

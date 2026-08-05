@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"$id": "https://schemas.baudbound.app/nodes/action-message-box.schema.json",
-	"title": "BaudBound Node - MessageBox",
+	"title": "BaudBound Node - Message Dialog",
 	"type": "object",
 	"additionalProperties": false,
 	"required": [
@@ -42,6 +42,7 @@
 			"additionalProperties": false,
 			"required": [
 				"buttons",
+				"dialogSize",
 				"message",
 				"title",
 				"type"
@@ -52,6 +53,7 @@
 					"enum": [
 						"ok",
 						"ok_cancel",
+						"cancel_confirm",
 						"yes_no",
 						"yes_no_cancel"
 					]
@@ -59,8 +61,29 @@
 				"customName": {
 					"type": "string"
 				},
+				"dialogSize": {
+					"type": "string",
+					"enum": [
+						"small",
+						"medium",
+						"large"
+					]
+				},
 				"message": {
 					"type": "string"
+				},
+				"timeoutSeconds": {
+					"anyOf": [
+						{
+							"type": "number",
+							"exclusiveMinimum": 0,
+							"maximum": 86400
+						},
+						{
+							"type": "string",
+							"minLength": 1
+						}
+					]
 				},
 				"title": {
 					"type": "string"
