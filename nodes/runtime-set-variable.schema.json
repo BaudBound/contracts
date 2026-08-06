@@ -49,12 +49,14 @@
 					"type": "string",
 					"enum": [
 						"string",
-						"number",
+						"integer",
+						"float",
 						"boolean",
 						"object",
+						"color",
+						"keyboard_key",
 						"datetime",
-						"duration",
-						"file_path"
+						"duration"
 					]
 				},
 				"fieldPath": {
@@ -64,25 +66,29 @@
 					"type": "string",
 					"enum": [
 						"string",
-						"number",
+						"integer",
+						"float",
 						"boolean",
 						"object",
 						"list",
+						"color",
+						"keyboard_key",
 						"datetime",
-						"duration",
-						"file_path"
+						"duration"
 					]
 				},
 				"itemType": {
 					"type": "string",
 					"enum": [
 						"string",
-						"number",
+						"integer",
+						"float",
 						"boolean",
 						"object",
+						"color",
+						"keyboard_key",
 						"datetime",
-						"duration",
-						"file_path"
+						"duration"
 					]
 				},
 				"name": {
@@ -126,13 +132,15 @@
 					"type": "string",
 					"enum": [
 						"string",
-						"number",
+						"integer",
+						"float",
 						"boolean",
 						"object",
 						"list",
+						"color",
+						"keyboard_key",
 						"datetime",
-						"duration",
-						"file_path"
+						"duration"
 					]
 				}
 			},
