@@ -49,7 +49,19 @@
 					"type": "string"
 				},
 				"targetType": {
-					"type": "string"
+					"type": "string",
+					"enum": [
+						"string",
+						"integer",
+						"float",
+						"boolean",
+						"object",
+						"list",
+						"color",
+						"keyboard_key",
+						"datetime",
+						"duration"
+					]
 				},
 				"value": {
 					"type": "string"
