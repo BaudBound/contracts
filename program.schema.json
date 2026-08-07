@@ -238,7 +238,7 @@
 				"object",
 				"list",
 				"color",
-				"keyboard_key",
+				"hotkey",
 				"datetime",
 				"duration"
 			]
@@ -253,7 +253,7 @@
 				"object",
 				"list",
 				"color",
-				"keyboard_key",
+				"hotkey",
 				"datetime",
 				"duration"
 			]

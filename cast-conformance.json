@@ -34,8 +34,8 @@
 		{ "value": "red", "target": "color", "error": true, "reason": "fails the color rule" },
 		{ "value": "#f00", "target": "color", "error": true, "reason": "three digit form is not accepted" },
 
-		{ "value": "F5", "target": "keyboard_key", "result": "F5", "reason": "known key" },
-		{ "value": "NotARealKey", "target": "keyboard_key", "error": true, "reason": "not a known key" },
+		{ "value": "F5", "target": "hotkey", "result": "F5", "reason": "known key" },
+		{ "value": "NotARealKey", "target": "hotkey", "error": true, "reason": "not a known key" },
 
 		{ "value": "2026-01-01T00:00:00.000Z", "target": "datetime", "result": { "type": "datetime", "value": "2026-01-01T00:00:00.000Z" }, "reason": "ISO string builds a tagged datetime" },
 		{ "value": "not a date", "target": "datetime", "error": true, "reason": "unparseable" },

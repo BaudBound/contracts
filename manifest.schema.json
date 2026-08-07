@@ -148,11 +148,11 @@
           },
           "type": {
             "type": "string",
-            "enum": ["string", "integer", "float", "boolean", "object", "list", "color", "keyboard_key", "datetime", "duration"]
+            "enum": ["string", "integer", "float", "boolean", "object", "list", "color", "hotkey", "datetime", "duration"]
           },
           "item_type": {
             "type": "string",
-            "enum": ["string", "integer", "float", "boolean", "object", "color", "keyboard_key", "datetime", "duration"]
+            "enum": ["string", "integer", "float", "boolean", "object", "color", "hotkey", "datetime", "duration"]
           },
           "description": {
             "type": "string",
@@ -173,7 +173,7 @@
           },
           {
             "not": { "required": ["item_type"] },
-            "properties": { "type": { "const": "keyboard_key" }, "value": { "type": "string", "pattern": "\\S" } }
+            "properties": { "type": { "const": "hotkey" }, "value": { "type": "string", "pattern": "\\S" } }
           },
           {
             "not": { "required": ["item_type"] },
@@ -216,7 +216,7 @@
                 "then": { "properties": { "value": { "items": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" } } } }
               },
               {
-                "if": { "properties": { "item_type": { "const": "keyboard_key" } } },
+                "if": { "properties": { "item_type": { "const": "hotkey" } } },
                 "then": { "properties": { "value": { "items": { "type": "string", "pattern": "\\S" } } } }
               },
               {
@@ -312,11 +312,11 @@
           },
           "type": {
             "type": "string",
-            "enum": ["string", "integer", "float", "boolean", "object", "list", "color", "keyboard_key", "datetime", "duration"]
+            "enum": ["string", "integer", "float", "boolean", "object", "list", "color", "hotkey", "datetime", "duration"]
           },
           "item_type": {
             "type": "string",
-            "enum": ["string", "integer", "float", "boolean", "object", "color", "keyboard_key", "datetime", "duration"]
+            "enum": ["string", "integer", "float", "boolean", "object", "color", "hotkey", "datetime", "duration"]
           },
           "description": {
             "type": "string",
@@ -418,7 +418,7 @@
                   }
                 },
                 {
-                  "if": { "properties": { "item_type": { "const": "keyboard_key" } } },
+                  "if": { "properties": { "item_type": { "const": "hotkey" } } },
                   "then": { "properties": { "default_value": { "items": { "type": "string", "pattern": "\\S" } } } }
                 },
                 {
@@ -463,7 +463,7 @@
           },
           {
             "if": {
-              "properties": { "type": { "const": "keyboard_key" } },
+              "properties": { "type": { "const": "hotkey" } },
               "required": ["type"]
             },
             "then": {

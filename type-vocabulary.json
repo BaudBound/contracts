@@ -9,7 +9,7 @@
 		"object": { "shape": "object" },
 		"list": { "shape": "array" },
 		"color": { "shape": "string", "rule": "pattern", "pattern": "^#[0-9a-fA-F]{6}$" },
-		"keyboard_key": { "shape": "string", "rule": "windows_hotkey" },
+		"hotkey": { "shape": "string", "rule": "windows_hotkey" },
 		"datetime": { "shape": "object", "rule": "tagged", "tag": "datetime", "fields": ["type", "value"] },
 		"duration": { "shape": "object", "rule": "tagged", "tag": "duration", "fields": ["type", "unit", "value"] }
 	}
