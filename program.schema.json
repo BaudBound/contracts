@@ -308,6 +308,8 @@
 				"has_key",
 				"contains_item",
 				"is_numeric",
+				"is_integer",
+				"is_float",
 				"is_string",
 				"is_boolean",
 				"is_list",
