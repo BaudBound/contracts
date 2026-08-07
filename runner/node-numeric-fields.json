@@ -31,10 +31,10 @@
 		"action.clipboard.set": {},
 		"action.delay": {
 			"amount": {
-				"kind": "float",
+				"kind": "integer",
 				"signed": false,
 				"minimum": "0",
-				"maximum": "1.7976931348623157e308",
+				"maximum": "9007199254740991",
 				"minimum_inclusive": false,
 				"maximum_inclusive": true,
 				"label": "Amount",
@@ -277,10 +277,10 @@
 		"trigger.process_started": {},
 		"trigger.schedule": {
 			"every": {
-				"kind": "float",
+				"kind": "integer",
 				"signed": false,
 				"minimum": "0",
-				"maximum": "1.7976931348623157e308",
+				"maximum": "9007199254740991",
 				"minimum_inclusive": false,
 				"maximum_inclusive": true,
 				"label": "Every",

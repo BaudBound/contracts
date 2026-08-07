@@ -148,11 +148,11 @@
           },
           "type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "list", "datetime", "duration", "file_path"]
+            "enum": ["string", "integer", "float", "boolean", "object", "list", "color", "hotkey", "datetime", "duration"]
           },
           "item_type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "datetime", "duration", "file_path"]
+            "enum": ["string", "integer", "float", "boolean", "object", "color", "hotkey", "datetime", "duration"]
           },
           "description": {
             "type": "string",
@@ -169,11 +169,19 @@
           },
           {
             "not": { "required": ["item_type"] },
-            "properties": { "type": { "const": "file_path" }, "value": { "type": "string", "pattern": "\\S" } }
+            "properties": { "type": { "const": "color" }, "value": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" } }
           },
           {
             "not": { "required": ["item_type"] },
-            "properties": { "type": { "const": "number" }, "value": { "type": "number" } }
+            "properties": { "type": { "const": "hotkey" }, "value": { "type": "string", "pattern": "\\S" } }
+          },
+          {
+            "not": { "required": ["item_type"] },
+            "properties": { "type": { "const": "integer" }, "value": { "type": "integer" } }
+          },
+          {
+            "not": { "required": ["item_type"] },
+            "properties": { "type": { "const": "float" }, "value": { "type": "number" } }
           },
           {
             "not": { "required": ["item_type"] },
@@ -188,7 +196,11 @@
                 "then": { "properties": { "value": { "items": { "type": "string" } } } }
               },
               {
-                "if": { "properties": { "item_type": { "const": "number" } } },
+                "if": { "properties": { "item_type": { "const": "integer" } } },
+                "then": { "properties": { "value": { "items": { "type": "integer" } } } }
+              },
+              {
+                "if": { "properties": { "item_type": { "const": "float" } } },
                 "then": { "properties": { "value": { "items": { "type": "number" } } } }
               },
               {
@@ -200,7 +212,11 @@
                 "then": { "properties": { "value": { "items": { "type": "object" } } } }
               },
               {
-                "if": { "properties": { "item_type": { "const": "file_path" } } },
+                "if": { "properties": { "item_type": { "const": "color" } } },
+                "then": { "properties": { "value": { "items": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" } } } }
+              },
+              {
+                "if": { "properties": { "item_type": { "const": "hotkey" } } },
                 "then": { "properties": { "value": { "items": { "type": "string", "pattern": "\\S" } } } }
               },
               {
@@ -296,11 +312,11 @@
           },
           "type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "list", "datetime", "duration", "file_path", "hotkey", "color"]
+            "enum": ["string", "integer", "float", "boolean", "object", "list", "color", "hotkey", "datetime", "duration"]
           },
           "item_type": {
             "type": "string",
-            "enum": ["string", "number", "boolean", "object", "datetime", "duration", "file_path"]
+            "enum": ["string", "integer", "float", "boolean", "object", "color", "hotkey", "datetime", "duration"]
           },
           "description": {
             "type": "string",
@@ -326,7 +342,17 @@
           },
           {
             "if": {
-              "properties": { "type": { "const": "number" } },
+              "properties": { "type": { "const": "integer" } },
+              "required": ["type"]
+            },
+            "then": {
+              "not": { "required": ["item_type"] },
+              "properties": { "default_value": { "type": "integer" } }
+            }
+          },
+          {
+            "if": {
+              "properties": { "type": { "const": "float" } },
               "required": ["type"]
             },
             "then": {
@@ -368,7 +394,11 @@
                   "then": { "properties": { "default_value": { "items": { "type": "string" } } } }
                 },
                 {
-                  "if": { "properties": { "item_type": { "const": "number" } } },
+                  "if": { "properties": { "item_type": { "const": "integer" } } },
+                  "then": { "properties": { "default_value": { "items": { "type": "integer" } } } }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "float" } } },
                   "then": { "properties": { "default_value": { "items": { "type": "number" } } } }
                 },
                 {
@@ -380,7 +410,15 @@
                   "then": { "properties": { "default_value": { "items": { "type": "object" } } } }
                 },
                 {
-                  "if": { "properties": { "item_type": { "const": "file_path" } } },
+                  "if": { "properties": { "item_type": { "const": "color" } } },
+                  "then": {
+                    "properties": {
+                      "default_value": { "items": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" } }
+                    }
+                  }
+                },
+                {
+                  "if": { "properties": { "item_type": { "const": "hotkey" } } },
                   "then": { "properties": { "default_value": { "items": { "type": "string", "pattern": "\\S" } } } }
                 },
                 {
@@ -421,16 +459,6 @@
                   }
                 }
               ]
-            }
-          },
-          {
-            "if": {
-              "properties": { "type": { "const": "file_path" } },
-              "required": ["type"]
-            },
-            "then": {
-              "not": { "required": ["item_type"] },
-              "properties": { "default_value": { "type": "string", "pattern": "\\S" } }
             }
           },
           {

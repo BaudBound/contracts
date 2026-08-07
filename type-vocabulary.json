@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"description": "The complete variable type vocabulary. Every type has a rule that rejects at least one value. A name that describes where a value came from is not a type.",
+	"types": {
+		"string": { "shape": "string" },
+		"integer": { "shape": "number", "rule": "whole", "minimum": -9007199254740991, "maximum": 9007199254740991 },
+		"float": { "shape": "number", "rule": "fractional_allowed" },
+		"boolean": { "shape": "boolean" },
+		"object": { "shape": "object" },
+		"list": { "shape": "array" },
+		"color": { "shape": "string", "rule": "pattern", "pattern": "^#[0-9a-fA-F]{6}$" },
+		"hotkey": { "shape": "string", "rule": "windows_hotkey" },
+		"datetime": { "shape": "object", "rule": "tagged", "tag": "datetime", "fields": ["type", "value"] },
+		"duration": { "shape": "object", "rule": "tagged", "tag": "duration", "fields": ["type", "unit", "value"] }
+	}
+}

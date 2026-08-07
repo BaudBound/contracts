@@ -1,0 +1,46 @@
+{
+	"version": 1,
+	"description": "Cases for the inline unsafe cast and the Convert Value node, which share one conversion implementation. A case with result succeeds. A case with error stops the run when used as an inline cast, and takes the failure output when used by the node.",
+	"cases": [
+		{ "value": 42, "target": "string", "result": "42", "reason": "integer widens" },
+		{ "value": 3.7, "target": "string", "result": "3.7", "reason": "float widens" },
+		{ "value": true, "target": "string", "result": "true", "reason": "boolean widens" },
+		{ "value": "#ff0000", "target": "string", "result": "#ff0000", "reason": "color widens" },
+		{ "value": [1, 2], "target": "string", "result": "[1,2]", "reason": "list serializes as JSON" },
+		{ "value": null, "target": "string", "error": true, "reason": "null is always an error" },
+
+		{ "value": "42", "target": "integer", "result": 42, "reason": "numeric string parses" },
+		{ "value": 42.0, "target": "integer", "result": 42, "reason": "a whole float narrows" },
+		{ "value": 3.7, "target": "integer", "error": true, "reason": "fractional cannot narrow" },
+		{ "value": "abc", "target": "integer", "error": true, "reason": "not numeric" },
+		{ "value": null, "target": "integer", "error": true, "reason": "null is always an error" },
+
+		{ "value": 42, "target": "float", "result": 42.0, "reason": "integer widens to float" },
+		{ "value": "3.7", "target": "float", "result": 3.7, "reason": "numeric string parses" },
+		{ "value": "abc", "target": "float", "error": true, "reason": "not numeric" },
+
+		{ "value": "true", "target": "boolean", "result": true, "reason": "recognised spelling" },
+		{ "value": "TRUE", "target": "boolean", "result": true, "reason": "case insensitive" },
+		{ "value": 1, "target": "boolean", "error": true, "reason": "a number is not a boolean spelling" },
+
+		{ "value": "[1,2]", "target": "list", "result": [1, 2], "reason": "JSON string parses" },
+		{ "value": 42, "target": "list", "error": true, "reason": "a scalar is not a list" },
+
+		{ "value": "{\"a\":1}", "target": "object", "result": { "a": 1 }, "reason": "JSON string parses" },
+		{ "value": [1], "target": "object", "error": true, "reason": "a list is not an object" },
+
+		{ "value": "#ff0000", "target": "color", "result": "#ff0000", "reason": "string narrows to color" },
+		{ "value": "#FF0000", "target": "color", "result": "#FF0000", "reason": "case preserved" },
+		{ "value": "red", "target": "color", "error": true, "reason": "fails the color rule" },
+		{ "value": "#f00", "target": "color", "error": true, "reason": "three digit form is not accepted" },
+
+		{ "value": "F5", "target": "hotkey", "result": "F5", "reason": "known key" },
+		{ "value": "NotARealKey", "target": "hotkey", "error": true, "reason": "not a known key" },
+
+		{ "value": "2026-01-01T00:00:00.000Z", "target": "datetime", "result": { "type": "datetime", "value": "2026-01-01T00:00:00.000Z" }, "reason": "ISO string builds a tagged datetime" },
+		{ "value": "not a date", "target": "datetime", "error": true, "reason": "unparseable" },
+
+		{ "value": { "type": "duration", "unit": "seconds", "value": 30 }, "target": "duration", "result": { "type": "duration", "unit": "seconds", "value": 30 }, "reason": "already a duration" },
+		{ "value": 30, "target": "duration", "error": true, "reason": "a bare number has no unit" }
+	]
+}

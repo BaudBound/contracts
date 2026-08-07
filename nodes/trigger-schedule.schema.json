@@ -47,9 +47,9 @@
 				"every": {
 					"anyOf": [
 						{
-							"type": "number",
+							"type": "integer",
 							"exclusiveMinimum": 0,
-							"maximum": 1.7976931348623157e+308
+							"maximum": 9007199254740991
 						},
 						{
 							"type": "string",
