@@ -45,6 +45,15 @@
 				},
 				"key": {
 					"type": "string"
+				},
+				"overlap": {
+					"type": "string",
+					"enum": [
+						"queue",
+						"skip",
+						"stop",
+						"restart"
+					]
 				}
 			}
 		}

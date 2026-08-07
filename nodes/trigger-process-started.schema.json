@@ -52,6 +52,15 @@
 						"window_title"
 					]
 				},
+				"overlap": {
+					"type": "string",
+					"enum": [
+						"queue",
+						"skip",
+						"stop",
+						"restart"
+					]
+				},
 				"target": {
 					"type": "string"
 				}
