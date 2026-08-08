@@ -1,0 +1,53 @@
+{
+	"version": 1,
+	"description": "Cases for the datetime format pattern, which the runner's Format Text action and the editor's simulator implement separately. A case with result renders that text. A case with error is refused by pattern validation before it renders. Every pattern is read in the offset the value carries, never converted to the machine's own zone.",
+	"tokens": ["yyyy", "yy", "MMMM", "MMM", "MM", "M", "dd", "d", "EEEE", "EEE", "HH", "H", "hh", "h", "a", "mm", "m", "ss", "s"],
+	"cases": [
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "yyyy", "result": "2026", "reason": "four digit year" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "yy", "result": "26", "reason": "two digit year" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "MMMM", "result": "July", "reason": "month name" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "MMM", "result": "Jul", "reason": "short month name" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "MM", "result": "07", "reason": "padded month" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "M", "result": "7", "reason": "unpadded month" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "dd", "result": "03", "reason": "padded day" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "d", "result": "3", "reason": "unpadded day" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "EEEE", "result": "Friday", "reason": "weekday name" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "EEE", "result": "Fri", "reason": "short weekday name" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "HH", "result": "14", "reason": "padded 24 hour" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "H", "result": "14", "reason": "unpadded 24 hour" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "hh", "result": "02", "reason": "padded 12 hour" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "h", "result": "2", "reason": "unpadded 12 hour" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "a", "result": "PM", "reason": "afternoon" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "mm", "result": "30", "reason": "padded minute" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "m", "result": "30", "reason": "unpadded minute" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "ss", "result": "45", "reason": "padded second" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "s", "result": "45", "reason": "unpadded second" },
+
+		{ "value": "2026-07-03T04:05:06+03:00", "pattern": "M/d H:m:s", "result": "7/3 4:5:6", "reason": "single letter tokens do not pad" },
+		{ "value": "2026-07-03T04:05:06+03:00", "pattern": "MM/dd HH:mm:ss", "result": "07/03 04:05:06", "reason": "doubled tokens pad" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "yyyy-MM-dd HH:mm", "result": "2026-07-03 14:30", "reason": "the common pattern" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "EEEE d MMMM yyyy", "result": "Friday 3 July 2026", "reason": "a written date" },
+
+		{ "value": "2026-07-03T00:15:00+00:00", "pattern": "hh:mm a", "result": "12:15 AM", "reason": "midnight is twelve, not zero" },
+		{ "value": "2026-07-03T12:15:00+00:00", "pattern": "hh:mm a", "result": "12:15 PM", "reason": "noon is twelve PM" },
+		{ "value": "2026-07-03T00:15:00+00:00", "pattern": "HH", "result": "00", "reason": "midnight is zero in 24 hour" },
+		{ "value": "2026-07-03T11:59:00+00:00", "pattern": "a", "result": "AM", "reason": "the last minute before noon" },
+
+		{ "value": "2026-07-03T14:30:45-05:00", "pattern": "HH", "result": "14", "reason": "read in the offset carried, not converted" },
+		{ "value": "2026-07-03T23:30:00+13:00", "pattern": "yyyy-MM-dd HH", "result": "2026-07-03 23", "reason": "a far offset does not shift the date" },
+		{ "value": "2026-01-05T00:00:00Z", "pattern": "EEEE", "result": "Monday", "reason": "Monday is the first weekday" },
+		{ "value": "2026-01-04T00:00:00Z", "pattern": "EEEE", "result": "Sunday", "reason": "Sunday is the last weekday" },
+
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "'on' EEEE", "result": "on Friday", "reason": "quoted letters are text" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "HH'h'mm", "result": "14h30", "reason": "a quote may be one letter" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "''yyyy", "result": "'2026", "reason": "two quotes are one literal quote" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "'YYYY' yyyy", "result": "YYYY 2026", "reason": "quoting rescues a name that is not a token" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "yyyy/MM/dd", "result": "2026/07/03", "reason": "punctuation is kept as written" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "HH→mm", "result": "14→30", "reason": "a character outside ASCII is kept whole" },
+
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "YYYY", "error": true, "reason": "a mistyped token is refused, not written out" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "yyyy DD", "error": true, "reason": "day of year is not supported" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "yyyy 'unclosed", "error": true, "reason": "an unclosed quote is refused" },
+		{ "value": "2026-07-03T14:30:45+03:00", "pattern": "", "error": true, "reason": "an empty pattern is refused" }
+	]
+}
