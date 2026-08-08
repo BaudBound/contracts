@@ -57,6 +57,15 @@
 						}
 					]
 				},
+				"overlap": {
+					"type": "string",
+					"enum": [
+						"queue",
+						"skip",
+						"stop",
+						"restart"
+					]
+				},
 				"unit": {
 					"type": "string",
 					"enum": [
