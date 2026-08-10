@@ -1,0 +1,153 @@
+{
+	"version": 2,
+	"description": "Cases for the component fields a datetime or duration exposes by path, which the runner computes while walking a reference and the editor's simulator computes the same way. These used to be `.$` suffixes; `$` now means metadata about a value and nothing else, while a component is part of the value and so belongs on the path. A datetime component is read in the offset the value carries, never converted to the machine's own zone. A duration is broken into whole components, so the fields read as a written span rather than the same span counted six ways.",
+	"datetime_fields": [
+		"full",
+		"utc",
+		"unix",
+		"offset_minutes",
+		"year",
+		"month",
+		"day",
+		"hour",
+		"minute",
+		"second",
+		"weekday"
+	],
+	"duration_fields": ["days", "hours", "minutes", "seconds", "milliseconds", "total_milliseconds"],
+	"cases": [
+		{
+			"value": { "type": "datetime", "value": "2026-07-03T14:30:45+03:00" },
+			"fields": {
+				"year": 2026,
+				"month": 7,
+				"day": 3,
+				"hour": 14,
+				"minute": 30,
+				"second": 45,
+				"weekday": 5,
+				"full": "2026-07-03T14:30:45+03:00",
+				"utc": "2026-07-03T11:30:45Z",
+				"unix": 1783078245,
+				"offset_minutes": 180
+			},
+			"reason": "every field of a datetime"
+		},
+		{
+			"value": { "type": "datetime", "value": "2026-07-03T14:30:45-05:00" },
+			"fields": { "hour": 14, "day": 3, "offset_minutes": -300, "utc": "2026-07-03T19:30:45Z" },
+			"reason": "read in the offset carried, so a machine in another zone agrees"
+		},
+		{
+			"value": { "type": "datetime", "value": "2026-07-03T23:30:00+13:00" },
+			"fields": { "day": 3, "hour": 23 },
+			"reason": "a far offset does not shift the date"
+		},
+		{
+			"value": { "type": "datetime", "value": "2026-01-05T00:00:00Z" },
+			"fields": { "weekday": 1 },
+			"reason": "Monday is 1"
+		},
+		{
+			"value": { "type": "datetime", "value": "2026-01-04T00:00:00Z" },
+			"fields": { "weekday": 7 },
+			"reason": "Sunday is 7, not 0"
+		},
+		{
+			"value": { "type": "datetime", "value": "2026-01-01T00:00:00Z" },
+			"fields": { "year": 2026, "month": 1, "day": 1, "hour": 0, "minute": 0, "second": 0, "offset_minutes": 0 },
+			"reason": "midnight reads as zero, not as missing"
+		},
+
+		{
+			"value": { "type": "duration", "unit": "milliseconds", "value": 0 },
+			"fields": { "days": 0, "hours": 0, "minutes": 0, "seconds": 0, "milliseconds": 0, "total_milliseconds": 0 },
+			"reason": "an empty span is zero everywhere"
+		},
+		{
+			"value": { "type": "duration", "unit": "milliseconds", "value": 90061500 },
+			"fields": {
+				"days": 1,
+				"hours": 1,
+				"minutes": 1,
+				"seconds": 1,
+				"milliseconds": 500,
+				"total_milliseconds": 90061500
+			},
+			"reason": "one day one hour one minute one and a half seconds, broken into components"
+		},
+		{
+			"value": { "type": "duration", "unit": "seconds", "value": 90 },
+			"fields": { "days": 0, "hours": 0, "minutes": 1, "seconds": 30, "milliseconds": 0, "total_milliseconds": 90000 },
+			"reason": "a component holds only what is left after the larger one"
+		},
+		{
+			"value": { "type": "duration", "unit": "minutes", "value": 90 },
+			"fields": { "hours": 1, "minutes": 30, "total_milliseconds": 5400000 },
+			"reason": "the unit is converted before the breakdown"
+		},
+		{
+			"value": { "type": "duration", "unit": "hours", "value": 25 },
+			"fields": { "days": 1, "hours": 1, "total_milliseconds": 90000000 },
+			"reason": "hours past a day roll into days"
+		},
+		{
+			"value": { "type": "duration", "unit": "days", "value": 2 },
+			"fields": { "days": 2, "hours": 0, "total_milliseconds": 172800000 },
+			"reason": "a whole day span leaves the smaller components empty"
+		},
+		{
+			"value": { "type": "duration", "unit": "seconds", "value": 1.5 },
+			"fields": { "seconds": 1, "milliseconds": 500, "total_milliseconds": 1500 },
+			"reason": "a fractional amount resolves to milliseconds"
+		}
+	],
+	"metadata_after_component_cases": [
+		{
+			"value": { "type": "datetime", "value": "2026-07-03T14:30:45+03:00" },
+			"field": "full",
+			"suffix": "$length",
+			"result": 25,
+			"reason": "metadata of the text a component produced, the two halves of the grammar composing"
+		},
+		{
+			"value": { "type": "datetime", "value": "2026-07-03T14:30:45+03:00" },
+			"field": "hour",
+			"suffix": "$type",
+			"result": "integer",
+			"reason": "a numeric component reports its own type"
+		}
+	],
+	"unresolved_cases": [
+		{
+			"value": { "type": "datetime", "value": "2026-07-03T14:30:45+03:00" },
+			"path": ".nonsense",
+			"reason": "a field a datetime does not have"
+		},
+		{
+			"value": { "type": "datetime", "value": "2026-07-03T14:30:45+03:00" },
+			"path": ".days",
+			"reason": "a duration field does not exist on a datetime"
+		},
+		{
+			"value": { "type": "duration", "unit": "seconds", "value": 90 },
+			"path": ".hour",
+			"reason": "a datetime field does not exist on a duration, and the names never overlap"
+		},
+		{
+			"value": { "type": "datetime", "value": "2026-07-03T14:30:45+03:00" },
+			"path": ".hour.year",
+			"reason": "a component is computed, so nothing can be walked into after it"
+		},
+		{
+			"value": { "type": "datetime", "value": "not a moment" },
+			"path": ".hour",
+			"reason": "a value that does not parse has no components"
+		},
+		{
+			"value": { "type": "duration", "unit": "parsecs", "value": 5 },
+			"path": ".seconds",
+			"reason": "an unknown unit has no components"
+		}
+	]
+}
