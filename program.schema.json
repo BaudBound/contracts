@@ -604,7 +604,7 @@
 			],
 			"properties": {
 				"syntax": {
-					"const": "{{variable_name}}"
+					"const": "{{@namespace.field}}"
 				},
 				"variables": {
 					"type": "array",
