@@ -1,0 +1,52 @@
+{
+	"version": 1,
+	"description": "Cases for the `$` metadata suffixes, which the runner resolves while walking a reference path and the editor's simulator resolves the same way. Metadata is computed from whatever the path lands on, so it works at any depth, not only on a top-level variable. A `$` segment is accepted only as the last segment of a reference: a value can genuinely hold a key named `$length`, and refusing it in the middle keeps one meaning for `$`.",
+	"suffixes": ["$length", "$count", "$type", "$is_empty"],
+	"variables": {
+		"greeting": "hello",
+		"items": ["one", "two", "three"],
+		"empty_list": [],
+		"config": {
+			"label": "hello",
+			"retries": 3,
+			"tags": ["a", "b"],
+			"nested": { "deep": "abcd" },
+			"blank": "",
+			"missing": null
+		}
+	},
+	"cases": [
+		{ "reference": "greeting.$length", "result": 5, "reason": "a top level variable still resolves from its flat sibling key" },
+		{ "reference": "greeting.$count", "result": 5, "reason": "count is an alias for length" },
+		{ "reference": "greeting.$type", "result": "string", "reason": "the type of a top level value" },
+		{ "reference": "greeting.$is_empty", "result": false, "reason": "a non empty string" },
+
+		{ "reference": "items.$length", "result": 3, "reason": "item count for a list" },
+		{ "reference": "empty_list.$length", "result": 0, "reason": "an empty list has no items" },
+		{ "reference": "empty_list.$is_empty", "result": true, "reason": "an empty list is empty" },
+
+		{ "reference": "config.$length", "result": 6, "reason": "key count for an object" },
+		{ "reference": "config.$type", "result": "object", "reason": "the type of an object" },
+
+		{ "reference": "config.label.$length", "result": 5, "reason": "metadata on an object field, the case that used to return nothing" },
+		{ "reference": "config.label.$type", "result": "string", "reason": "type of an object field" },
+		{ "reference": "config.retries.$type", "result": "integer", "reason": "type of a numeric field" },
+		{ "reference": "config.retries.$length", "result": 0, "reason": "a number has no length" },
+		{ "reference": "config.blank.$is_empty", "result": true, "reason": "an empty string field is empty" },
+		{ "reference": "config.missing.$type", "result": "null", "reason": "a null field reports null rather than resolving to nothing" },
+		{ "reference": "config.missing.$is_empty", "result": true, "reason": "null is empty" },
+
+		{ "reference": "config.tags.$length", "result": 2, "reason": "metadata on a list reached through a path" },
+		{ "reference": "config.tags[0].$length", "result": 1, "reason": "metadata on a list element" },
+		{ "reference": "items[1].$type", "result": "string", "reason": "metadata after a bracket accessor" },
+		{ "reference": "config.nested.deep.$length", "result": 4, "reason": "metadata two levels down" },
+		{ "reference": "config[\"label\"].$length", "result": 5, "reason": "metadata after a quoted accessor" },
+
+		{ "reference": "config.$length.foo", "unresolved": true, "reason": "a $ segment is only allowed last" },
+		{ "reference": "config.label.$length.$type", "unresolved": true, "reason": "metadata cannot be taken of metadata" },
+		{ "reference": "config.$nonsense", "unresolved": true, "reason": "an unknown $ segment is not an object key" },
+		{ "reference": "config.label.$nonsense", "unresolved": true, "reason": "an unknown $ segment at depth resolves to nothing" },
+		{ "reference": "missing_variable.$length", "unresolved": true, "reason": "metadata of a variable that does not exist" },
+		{ "reference": "config.absent.$length", "unresolved": true, "reason": "metadata of a field that does not exist" }
+	]
+}
