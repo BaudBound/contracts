@@ -111,44 +111,6 @@
 					"if": {
 						"properties": {
 							"operation": {
-								"const": "set"
-							}
-						},
-						"required": [
-							"operation"
-						]
-					},
-					"then": {
-						"required": [
-							"valueType"
-						]
-					}
-				},
-				{
-					"if": {
-						"properties": {
-							"operation": {
-								"const": "set"
-							},
-							"valueType": {
-								"const": "list"
-							}
-						},
-						"required": [
-							"operation",
-							"valueType"
-						]
-					},
-					"then": {
-						"required": [
-							"itemType"
-						]
-					}
-				},
-				{
-					"if": {
-						"properties": {
-							"operation": {
 								"enum": [
 									"set_object_field",
 									"remove_object_field"
