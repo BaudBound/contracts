@@ -58,6 +58,25 @@
 					"items": {
 						"type": "object",
 						"additionalProperties": false,
+						"allOf": [
+							{
+								"if": {
+									"required": [
+										"operation"
+									],
+									"properties": {
+										"operation": {
+											"const": "format_datetime"
+										}
+									}
+								},
+								"then": {
+									"required": [
+										"pattern"
+									]
+								}
+							}
+						],
 						"required": [
 							"id",
 							"operation"
@@ -71,6 +90,7 @@
 								"type": "string",
 								"enum": [
 									"template",
+									"format_datetime",
 									"trim",
 									"uppercase",
 									"lowercase",
@@ -102,6 +122,10 @@
 							},
 							"delimiter": {
 								"type": "string"
+							},
+							"pattern": {
+								"type": "string",
+								"minLength": 1
 							},
 							"start": {
 								"anyOf": [
