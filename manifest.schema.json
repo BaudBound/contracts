@@ -165,7 +165,7 @@
         "oneOf": [
           {
             "not": { "required": ["item_type"] },
-            "properties": { "type": { "const": "string" }, "value": { "type": "string", "pattern": "\\S" } }
+            "properties": { "type": { "const": "string" }, "value": { "type": "string" } }
           },
           {
             "not": { "required": ["item_type"] },
