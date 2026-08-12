@@ -49,6 +49,14 @@
 				},
 				"expression": {
 					"type": "string"
+				},
+				"resultType": {
+					"type": "string",
+					"enum": [
+						"automatic",
+						"integer",
+						"float"
+					]
 				}
 			}
 		}

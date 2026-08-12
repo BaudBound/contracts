@@ -77,7 +77,8 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"deleted",
+				"not_found",
 				"failed"
 			]
 		},
@@ -107,7 +108,8 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"read",
+				"not_found",
 				"failed"
 			]
 		},
@@ -127,7 +129,9 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"submitted",
+				"cancelled",
+				"timed_out",
 				"failed"
 			]
 		},
@@ -137,7 +141,10 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"ok",
+				"client_error",
+				"server_error",
+				"unexpected_status",
 				"failed"
 			]
 		},
@@ -176,7 +183,12 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"ok",
+				"cancel",
+				"confirm",
+				"yes",
+				"no",
+				"timed_out",
 				"failed"
 			]
 		},
@@ -226,7 +238,8 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"killed",
+				"not_found",
 				"failed"
 			]
 		},
@@ -236,7 +249,9 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"exited_zero",
+				"exited_nonzero",
+				"timed_out",
 				"failed"
 			]
 		},
@@ -246,7 +261,8 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"running",
+				"not_running",
 				"failed"
 			]
 		},
@@ -266,7 +282,8 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"sent",
+				"device_unavailable",
 				"failed"
 			]
 		},
@@ -276,7 +293,9 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"exited_zero",
+				"exited_nonzero",
+				"timed_out",
 				"failed"
 			]
 		},
@@ -336,7 +355,8 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"sent",
+				"connection_closed",
 				"failed"
 			]
 		},
@@ -356,7 +376,8 @@
 				"input"
 			],
 			"outputs": [
-				"success",
+				"focused",
+				"not_found",
 				"failed"
 			]
 		},
@@ -445,7 +466,10 @@
 			"kind": "fixed",
 			"inputs": [],
 			"outputs": [
-				"out"
+				"created",
+				"modified",
+				"deleted",
+				"renamed"
 			]
 		},
 		"trigger.hotkey": {

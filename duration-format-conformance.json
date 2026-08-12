@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "description": "Cases for the elapsed-duration format pattern used by Text Transform in the runner and editor simulator. HH is the hour component after whole days, so durations spanning a day should include D when that distinction matters. Inputs are rounded to the nearest millisecond before formatting.",
+  "units": ["milliseconds", "seconds", "minutes", "hours", "days"],
+  "tokens": ["D", "DD", "H", "HH", "m", "mm", "s", "ss", "S", "SS", "SSS"],
+  "cases": [
+    { "amount": 90061, "unit": "seconds", "pattern": "D HH:mm:ss", "result": "1 01:01:01", "reason": "A duration longer than a day carries whole days and a zero-to-twenty-three hour component." },
+    { "amount": 3723004, "unit": "milliseconds", "pattern": "DD HH:mm:ss.SSS", "result": "00 01:02:03.004", "reason": "Padded date-style tokens preserve leading zeroes including milliseconds." },
+    { "amount": 1501, "unit": "minutes", "pattern": "D H:m:s", "result": "1 1:1:0", "reason": "Every supported source unit reaches the same elapsed components." },
+    { "amount": 25.5, "unit": "hours", "pattern": "D HH:mm:ss", "result": "1 01:30:00", "reason": "Fractional source units are retained to millisecond precision." },
+    { "amount": 1.2345, "unit": "seconds", "pattern": "ss.SSS", "result": "01.235", "reason": "Values are rounded to the nearest millisecond before formatting." },
+    { "amount": 1.5, "unit": "days", "pattern": "D 'days,' HH 'hours'", "result": "1 days, 12 hours", "reason": "Quoted literal text is kept while unquoted letters are format tokens." },
+    { "amount": 1, "unit": "seconds", "pattern": "YYYY", "error": true, "reason": "Date-only tokens must not silently become literal duration text." },
+    { "amount": 1, "unit": "seconds", "pattern": "HH 'unclosed", "error": true, "reason": "Quoted text must have a closing quote." },
+    { "amount": 1, "unit": "seconds", "pattern": "", "error": true, "reason": "A formatter without a pattern cannot produce a predictable display." }
+  ]
+}
