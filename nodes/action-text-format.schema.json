@@ -58,6 +58,43 @@
 					"items": {
 						"type": "object",
 						"additionalProperties": false,
+						"allOf": [
+							{
+								"if": {
+									"required": [
+										"operation"
+									],
+									"properties": {
+										"operation": {
+											"const": "format_datetime"
+										}
+									}
+								},
+								"then": {
+									"required": [
+										"pattern"
+									]
+								}
+							},
+							{
+								"if": {
+									"required": [
+										"operation"
+									],
+									"properties": {
+										"operation": {
+											"const": "format_duration"
+										}
+									}
+								},
+								"then": {
+									"required": [
+										"durationUnit",
+										"pattern"
+									]
+								}
+							}
+						],
 						"required": [
 							"id",
 							"operation"
@@ -71,6 +108,8 @@
 								"type": "string",
 								"enum": [
 									"template",
+									"format_datetime",
+									"format_duration",
 									"trim",
 									"uppercase",
 									"lowercase",
@@ -102,6 +141,20 @@
 							},
 							"delimiter": {
 								"type": "string"
+							},
+							"pattern": {
+								"type": "string",
+								"minLength": 1
+							},
+							"durationUnit": {
+								"type": "string",
+								"enum": [
+									"milliseconds",
+									"seconds",
+									"minutes",
+									"hours",
+									"days"
+								]
 							},
 							"start": {
 								"anyOf": [

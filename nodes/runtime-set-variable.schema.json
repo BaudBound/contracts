@@ -38,8 +38,7 @@
 			"additionalProperties": false,
 			"required": [
 				"name",
-				"operation",
-				"scope"
+				"operation"
 			],
 			"properties": {
 				"customName": {
@@ -77,20 +76,6 @@
 						"duration"
 					]
 				},
-				"itemType": {
-					"type": "string",
-					"enum": [
-						"string",
-						"integer",
-						"float",
-						"boolean",
-						"object",
-						"color",
-						"hotkey",
-						"datetime",
-						"duration"
-					]
-				},
 				"name": {
 					"type": "string",
 					"pattern": "^[A-Za-z0-9_-]+$"
@@ -107,7 +92,7 @@
 						"remove_object_field",
 						"merge_object",
 						"clear",
-						"delete"
+						"reset"
 					]
 				},
 				"removeMode": {
@@ -117,72 +102,11 @@
 						"all"
 					]
 				},
-				"scope": {
-					"type": "string",
-					"enum": [
-						"runtime",
-						"persistent",
-						"global"
-					]
-				},
 				"value": {
 					"$ref": "https://schemas.baudbound.app/program.schema.json#/$defs/jsonValue"
-				},
-				"valueType": {
-					"type": "string",
-					"enum": [
-						"string",
-						"integer",
-						"float",
-						"boolean",
-						"object",
-						"list",
-						"color",
-						"hotkey",
-						"datetime",
-						"duration"
-					]
 				}
 			},
 			"allOf": [
-				{
-					"if": {
-						"properties": {
-							"operation": {
-								"const": "set"
-							}
-						},
-						"required": [
-							"operation"
-						]
-					},
-					"then": {
-						"required": [
-							"valueType"
-						]
-					}
-				},
-				{
-					"if": {
-						"properties": {
-							"operation": {
-								"const": "set"
-							},
-							"valueType": {
-								"const": "list"
-							}
-						},
-						"required": [
-							"operation",
-							"valueType"
-						]
-					},
-					"then": {
-						"required": [
-							"itemType"
-						]
-					}
-				},
 				{
 					"if": {
 						"properties": {

@@ -1,0 +1,332 @@
+{
+	"version": 1,
+	"description": "Cases for the rule that a variable exists because it was declared. Covers a write to an undeclared name, an operation the declared type cannot take, two scripts declaring one global name incompatibly, and what clear and reset each write. Clear empties a variable for its declared type; reset puts back the value its declaration gives it. Both answer from the declaration rather than from whatever the variable happens to hold, so a case is only useful when the declared value differs from the empty one. A hotkey has no empty value, so clear has no answer for one.",
+	"cases": {
+		"clearAndReset": [
+			{
+				"name": "string",
+				"declared": {
+					"type": "string",
+					"value": "ready"
+				},
+				"stored": "changed",
+				"clear": "",
+				"reset": "ready"
+			},
+			{
+				"name": "integer",
+				"declared": {
+					"type": "integer",
+					"value": 10
+				},
+				"stored": 42,
+				"clear": 0,
+				"reset": 10
+			},
+			{
+				"name": "float",
+				"declared": {
+					"type": "float",
+					"value": 1.5
+				},
+				"stored": 9.25,
+				"clear": 0.0,
+				"reset": 1.5
+			},
+			{
+				"name": "boolean",
+				"declared": {
+					"type": "boolean",
+					"value": true
+				},
+				"stored": false,
+				"clear": false,
+				"reset": true,
+				"reason": "clear and reset agree only when the declared value is already the empty one; here they differ because the declaration says true"
+			},
+			{
+				"name": "list",
+				"declared": {
+					"type": "list",
+					"itemType": "string",
+					"value": [
+						"a",
+						"b"
+					]
+				},
+				"stored": [
+					"a",
+					"b",
+					"c"
+				],
+				"clear": [],
+				"reset": [
+					"a",
+					"b"
+				]
+			},
+			{
+				"name": "object",
+				"declared": {
+					"type": "object",
+					"value": {
+						"retries": 3
+					}
+				},
+				"stored": {
+					"retries": 9
+				},
+				"clear": {},
+				"reset": {
+					"retries": 3
+				}
+			},
+			{
+				"name": "color",
+				"declared": {
+					"type": "color",
+					"value": "#ff0000"
+				},
+				"stored": "#00ff00",
+				"clear": "#000000",
+				"reset": "#ff0000",
+				"reason": "a color is a JSON string, so clearing by the stored value's shape would empty it to \"\" instead of black"
+			},
+			{
+				"name": "datetime",
+				"declared": {
+					"type": "datetime",
+					"value": {
+						"type": "datetime",
+						"value": "2024-03-01T12:00:00.000Z"
+					}
+				},
+				"stored": {
+					"type": "datetime",
+					"value": "2025-06-15T08:30:00.000Z"
+				},
+				"clear": {
+					"type": "datetime",
+					"value": "1970-01-01T00:00:00.000Z"
+				},
+				"reset": {
+					"type": "datetime",
+					"value": "2024-03-01T12:00:00.000Z"
+				}
+			},
+			{
+				"name": "duration",
+				"declared": {
+					"type": "duration",
+					"value": {
+						"type": "duration",
+						"unit": "seconds",
+						"value": 30
+					}
+				},
+				"stored": {
+					"type": "duration",
+					"unit": "seconds",
+					"value": 90
+				},
+				"clear": {
+					"type": "duration",
+					"unit": "seconds",
+					"value": 0
+				},
+				"reset": {
+					"type": "duration",
+					"unit": "seconds",
+					"value": 30
+				}
+			},
+			{
+				"name": "hotkey",
+				"declared": {
+					"type": "hotkey",
+					"value": "F5"
+				},
+				"stored": "Ctrl+S",
+				"clear": null,
+				"reset": "F5",
+				"reason": "no key combination means \"no key\", so clear has no answer; a null clear means the operation is refused"
+			}
+		],
+		"undeclaredWrites": [
+			{
+				"name": "a write with no declaration at all",
+				"declared": [],
+				"writes": [
+					{
+						"name": "tally",
+						"operation": "set"
+					}
+				],
+				"reason": "a declaration is what makes a variable exist, so there is nothing to write to",
+				"refusedAt": "run"
+			},
+			{
+				"name": "a write to a different name than the one declared",
+				"declared": [
+					{
+						"name": "counter",
+						"scope": "runtime",
+						"type": "integer"
+					}
+				],
+				"writes": [
+					{
+						"name": "tally",
+						"operation": "set"
+					}
+				],
+				"reason": "a near miss is the typo this rule exists to catch",
+				"refusedAt": "run"
+			},
+			{
+				"name": "several nodes writing one declaration",
+				"declared": [
+					{
+						"name": "counter",
+						"scope": "runtime",
+						"type": "integer"
+					}
+				],
+				"writes": [
+					{
+						"name": "counter",
+						"operation": "set"
+					},
+					{
+						"name": "counter",
+						"operation": "increment"
+					}
+				],
+				"reason": "one declaration serves every node that writes it; N nodes are not N declarations",
+				"refusedAt": null
+			}
+		],
+		"operationTypeAgreement": [
+			{
+				"name": "toggle a string",
+				"declared": [
+					{
+						"name": "label",
+						"scope": "runtime",
+						"type": "string"
+					}
+				],
+				"writes": [
+					{
+						"name": "label",
+						"operation": "toggle_boolean"
+					}
+				],
+				"reason": "the operation implies boolean and the declaration says string",
+				"refusedAt": "run"
+			},
+			{
+				"name": "increment a list",
+				"declared": [
+					{
+						"name": "items",
+						"scope": "runtime",
+						"type": "list",
+						"itemType": "string"
+					}
+				],
+				"writes": [
+					{
+						"name": "items",
+						"operation": "increment"
+					}
+				],
+				"reason": "increment pins no numeric type, so the mismatch surfaces when the value is read rather than at run start; the package loader refuses it at install",
+				"refusedAt": "node"
+			},
+			{
+				"name": "increment a float",
+				"declared": [
+					{
+						"name": "ratio",
+						"scope": "runtime",
+						"type": "float"
+					}
+				],
+				"writes": [
+					{
+						"name": "ratio",
+						"operation": "increment"
+					}
+				],
+				"reason": "increment pins no numeric type and preserves the declared one",
+				"refusedAt": null
+			}
+		],
+		"globalDeclarationConflicts": [
+			{
+				"name": "same name, different type",
+				"first": {
+					"name": "shared_counter",
+					"scope": "global",
+					"type": "integer"
+				},
+				"second": {
+					"name": "shared_counter",
+					"scope": "global",
+					"type": "string"
+				},
+				"refused": true,
+				"reason": "a global is shared by name, so two types describe one stored value two incompatible ways"
+			},
+			{
+				"name": "same name, different list item type",
+				"first": {
+					"name": "shared_items",
+					"scope": "global",
+					"type": "list",
+					"itemType": "string"
+				},
+				"second": {
+					"name": "shared_items",
+					"scope": "global",
+					"type": "list",
+					"itemType": "integer"
+				},
+				"refused": true,
+				"reason": "what a list holds is part of what the value is"
+			},
+			{
+				"name": "same name, same type",
+				"first": {
+					"name": "shared_counter",
+					"scope": "global",
+					"type": "integer"
+				},
+				"second": {
+					"name": "shared_counter",
+					"scope": "global",
+					"type": "integer"
+				},
+				"refused": false,
+				"reason": "agreeing declarations share the value, which is the point of a global"
+			},
+			{
+				"name": "same name in different scopes",
+				"first": {
+					"name": "counter",
+					"scope": "persistent",
+					"type": "integer"
+				},
+				"second": {
+					"name": "counter",
+					"scope": "persistent",
+					"type": "string"
+				},
+				"refused": false,
+				"reason": "a persistent variable belongs to one script, so two scripts naming one do not collide"
+			}
+		]
+	},
+	"refusedAtNote": "undeclaredWrites and operationTypeAgreement are both package faults: the run is refused before any node executes, rather than letting a node take its failed output. A package carrying either is also refused when it is loaded."
+}

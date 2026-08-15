@@ -26,6 +26,7 @@
     "id": {
       "type": "string",
       "format": "uuid",
+      "pattern": "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[1-8][0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$",
       "maxLength": 36
     },
     "name": {
@@ -144,7 +145,7 @@
           },
           "scope": {
             "type": "string",
-            "enum": ["runtime", "persistent"]
+            "enum": ["runtime", "persistent", "global"]
           },
           "type": {
             "type": "string",
@@ -165,7 +166,7 @@
         "oneOf": [
           {
             "not": { "required": ["item_type"] },
-            "properties": { "type": { "const": "string" }, "value": { "type": "string", "pattern": "\\S" } }
+            "properties": { "type": { "const": "string" }, "value": { "type": "string" } }
           },
           {
             "not": { "required": ["item_type"] },
