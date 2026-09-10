@@ -45,6 +45,7 @@
 					"runtime.color_match",
 					"runtime.if",
 					"runtime.switch",
+					"runtime.router",
 					"runtime.repeat",
 					"runtime.break_loop",
 					"runtime.continue_loop",

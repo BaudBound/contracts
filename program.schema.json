@@ -78,6 +78,7 @@
 				"control.for_each",
 				"control.if",
 				"control.repeat",
+				"control.router",
 				"control.switch",
 				"control.while",
 				"runtime.set_variable",
@@ -115,6 +116,7 @@
 				"control.for_each",
 				"control.if",
 				"control.repeat",
+				"control.router",
 				"control.switch",
 				"control.while"
 			]
@@ -224,6 +226,7 @@
 				"for_each",
 				"if",
 				"repeat",
+				"router",
 				"switch",
 				"while"
 			]
@@ -722,6 +725,9 @@
 				},
 				{
 					"$ref": "https://schemas.baudbound.app/nodes/control-repeat.schema.json"
+				},
+				{
+					"$ref": "https://schemas.baudbound.app/nodes/control-router.schema.json"
 				},
 				{
 					"$ref": "https://schemas.baudbound.app/nodes/control-switch.schema.json"

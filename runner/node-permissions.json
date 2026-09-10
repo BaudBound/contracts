@@ -320,6 +320,10 @@
 			"permission": null,
 			"path_rules": []
 		},
+		"control.router": {
+			"permission": null,
+			"path_rules": []
+		},
 		"control.switch": {
 			"permission": null,
 			"path_rules": []

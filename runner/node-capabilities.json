@@ -127,6 +127,9 @@
 		"control.repeat": [
 			"runtime.repeat"
 		],
+		"control.router": [
+			"runtime.router"
+		],
 		"control.switch": [
 			"runtime.switch"
 		],
