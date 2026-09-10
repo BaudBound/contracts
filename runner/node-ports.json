@@ -435,6 +435,13 @@
 				"repeat"
 			]
 		},
+		"control.router": {
+			"kind": "router_ports",
+			"inputs_key": "inputs",
+			"outputs_key": "outputs",
+			"input_prefix": "in-",
+			"output_prefix": "out-"
+		},
 		"control.switch": {
 			"kind": "switch_cases",
 			"config_key": "cases",
